@@ -10,3 +10,10 @@ https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
 Trigonometrie ne c:
 http://gamecodeschool.com/essentials/calculating-heading-in-2d-games-using-trigonometric-functions-part-1/
 
+Notions Mathematique a connaitre:
+
+- Trigonometrie (Savoir manipuller sin, cos, tan)
+- Comprendre ce qu'est un vecteur, et comment le manipuller
+	- Addition/soustraction de vecteurs
+- Manipulation de donnees dans un plan (x,y)
+- Theoreme de pythagore
