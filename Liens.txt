@@ -1,0 +1,6 @@
+4 Parties juste la partie Raycasting:
+https://harm-smits.github.io/42docs/projects/cub3d
+
+Un guide globale sur le sujet:
+https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
+
