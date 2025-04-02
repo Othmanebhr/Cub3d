@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   test_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 11:54:24 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:57:18 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main()
 	if (!game.win)
 		return ("error: Window\n", 1);
 	mlx_key_hook(game.win, handle_escape, &game);
-	mlx_hook(game.win, 17, 0, close_window, &game);
+	mlx_hook(game.win, 17, 0, close_window, &game);/**/
 	mlx_loop(game.mlx);
 	return (0);
 }
