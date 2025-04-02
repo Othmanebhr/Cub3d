@@ -6,11 +6,11 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 11:57:18 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:39:56 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
+#include "../mlx/mlx.h"
 #include <stdlib.h>
 #include <stdio.h>
 
