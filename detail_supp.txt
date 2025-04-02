@@ -1,0 +1,1 @@
+- Ajouter le flag "-ftrapv" dans le makefile pour tester les overflows

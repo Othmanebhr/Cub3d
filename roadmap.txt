@@ -18,6 +18,7 @@ PARSING
 |
 |_Convertir le ficher en grille rectangulaire et stocker les espaces
 |_Verifier et stocker la position du joueur sur la grille (en coordonnees x,y)
+|_Verifications des permissions des images .xpm
 
 MLX
 |
