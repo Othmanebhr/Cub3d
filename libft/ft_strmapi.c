@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_maps.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 16:29:15 by obouhour         ###   ########.fr       */
+/*   Created: 2024/06/03 13:02:10 by obouhour          #+#    #+#             */
+/*   Updated: 2024/06/11 12:05:19 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	fd;
+	size_t	i;
+	char	*str;
 
-	if (ac != 2)
-		return (printf("format: ./cub3d 'map.cub'\n"));
-	/*Parse*/
-	fd = open(av[1], O_RDONLY);
-	
+	i = 0;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str)
+		return (NULL);
+	while (s[i])
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

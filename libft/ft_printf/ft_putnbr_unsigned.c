@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_maps.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 16:29:15 by obouhour         ###   ########.fr       */
+/*   Created: 2024/06/15 14:45:43 by obouhour          #+#    #+#             */
+/*   Updated: 2024/06/15 14:47:31 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "ft_printf.h"
 
-int main(int ac, char **av)
+int	ft_putnbr_unsigned(unsigned int n)
 {
-	int	fd;
+	int	count;
 
-	if (ac != 2)
-		return (printf("format: ./cub3d 'map.cub'\n"));
-	/*Parse*/
-	fd = open(av[1], O_RDONLY);
-	
+	count = 0;
+	if (n >= 10)
+	{
+		count += ft_putnbr(n / 10);
+	}
+	count += ft_putchar(n % 10 + '0');
+	return (count);
 }

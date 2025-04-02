@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_maps.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 16:29:15 by obouhour         ###   ########.fr       */
+/*   Created: 2024/05/21 19:01:19 by obouhour          #+#    #+#             */
+/*   Updated: 2024/06/11 12:04:53 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+char	*ft_strdup(const char *src)
 {
-	int	fd;
+	char	*dest;
+	size_t	i;
 
-	if (ac != 2)
-		return (printf("format: ./cub3d 'map.cub'\n"));
-	/*Parse*/
-	fd = open(av[1], O_RDONLY);
-	
+	i = 0;
+	dest = (char *)malloc(sizeof(char) * (ft_strlen(src) +1));
+	if (dest == NULL)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
+// int main(void)
+// {
+// 	char *src = "abcde";
+// 	char *dest = ft_strdup(src);
+// 	printf("%s", dest);
+// 	free;
+// 	return (0);
+// }

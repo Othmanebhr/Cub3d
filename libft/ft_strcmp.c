@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_maps.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 16:29:15 by obouhour         ###   ########.fr       */
+/*   Created: 2024/10/24 16:00:32 by root              #+#    #+#             */
+/*   Updated: 2024/10/27 15:27:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int	fd;
+	int	i;
 
-	if (ac != 2)
-		return (printf("format: ./cub3d 'map.cub'\n"));
-	/*Parse*/
-	fd = open(av[1], O_RDONLY);
-	
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (s1[i] - s2[i]);
 }

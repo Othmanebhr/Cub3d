@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_maps.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 16:29:15 by obouhour         ###   ########.fr       */
+/*   Created: 2024/05/25 16:31:47 by obouhour          #+#    #+#             */
+/*   Updated: 2024/06/03 15:11:23 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	int	fd;
+	size_t	len_dest;
+	size_t	len_src;
+	size_t	i;
 
-	if (ac != 2)
-		return (printf("format: ./cub3d 'map.cub'\n"));
-	/*Parse*/
-	fd = open(av[1], O_RDONLY);
-	
+	len_dest = ft_strlen(dest);
+	len_src = ft_strlen(src);
+	if (size <= len_dest)
+	{
+		return (size + len_src);
+	}
+	i = 0;
+	while (src[i] && (len_dest + i) < (size - 1))
+	{
+		dest[len_dest + i] = src[i];
+		i++;
+	}
+	dest[len_dest + i] = '\0';
+	return (len_dest + len_src);
 }

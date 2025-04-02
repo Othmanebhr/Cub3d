@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_maps.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 16:29:15 by obouhour         ###   ########.fr       */
+/*   Created: 2024/05/21 11:04:49 by obouhour          #+#    #+#             */
+/*   Updated: 2024/06/04 12:18:35 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+char	*ft_strrchr(const char *str, int search)
 {
-	int	fd;
+	int		i;
+	char	c;
 
-	if (ac != 2)
-		return (printf("format: ./cub3d 'map.cub'\n"));
-	/*Parse*/
-	fd = open(av[1], O_RDONLY);
-	
+	c = (char)search;
+	i = 0;
+	while (str[i])
+		i++;
+	while (i >= 0 && str[i] != c)
+		i--;
+	if (str[i] == c)
+		return ((char *)&str[i]);
+	return (NULL);
 }
+/*
+int main (void)
+{
+    const char str[] = "Ohtmaaane";
+    char sh = 'a';
+    printf("%s\n", ft_strrchr(str, sh));
+    return (0);
+}*/
