@@ -1,0 +1,75 @@
+-----------------1-----------------
+
+Ouvrir le fichier .Cub
+|_Extraire texture NO,SO,EA,WE
+|_Couleur sol et plafond
+|_Carte Labyrinthe
+|
+|__Creer struct map pour stocker tout cela
+
+-----------------2-----------------
+
+PARSING
+|
+|_Verifier la map
+|				|_Carte bien fermer par des 1 (flood_file)
+|				|_Personnage (N,S,E,O) present une seule fois
+|				|_Erreur de format/caractere...
+|
+|_Convertir le ficher en grille rectangulaire et stocker les espaces
+|_Verifier et stocker la position du joueur sur la grille (en coordonnees x,y)
+
+MLX
+|
+|_Init_mlx
+		|_gestion texture
+		|_keyhook
+		|_events (fermeture de la fenetre a la main/echap, si mise en place systeme de WIN)
+		|_Collisions (Normalelemt en bonus mais sans trop de risque de segfault)
+		|
+		|
+		|/*Bonus*/
+		|__Potentiel gestion d'une minimap
+		|__Gestion de la souris
+		|/*Bonus vraiment mechant*/
+		|___Porte(ouverture/fermeture)
+		|___Sprite anime
+
+-----------------3-----------------
+
+RAYCASTING
+|
+|_Calcul des rayons
+					|_Calcul des rayons
+					|					|_Implementation algorithme de DDA (Digital Differential Analyzer) pour détecter les murs
+					|					|_Calcul des intersections entre les rayons et les murs.
+					|_Rendu 3D
+					|		|_Determinations de la distance entre le joueur et les murs pour adapter la hauteur des colonnes
+					|		|_Ajout d'une distorsion de perspective pour un rendu réaliste (?????) (a voir si obligatoire aussi)
+					|		|_Gerer Sol et plafond avec les couleurs definie dans le .cub
+					|_Ajout des textures
+										|_Charger textures et afficher sur les murs (cf MLX)
+										|_Mapper les textures sur les colonnes en fonction de la position d’impact des rayons (??)
+
+
+-----------------3.5-----------------
+
+/*Potentiellement gere avant, mais si c'est pas le cas le faire a ce moment la*/
+
+Gestion Input/deplacement
+|_Bien gerer/implementer les deplacements avec les keyhooks
+|_Opti les mouvement pour eviter de passer a travers les murs
+|
+|/*Bonus*/
+|__Gestion de la rotation de la souris avec le cosinus() et le sinus()
+
+-----------------4-----------------
+
+Ameliorations et optimisations
+|_Opti les calculs pour le performances
+|_Amelioration potentiel de la gestion d'erreur
+|_NORME
+|_______________TEST
+|
+|/*Bonus*/
+|__Minimap dynamique et bien opti
