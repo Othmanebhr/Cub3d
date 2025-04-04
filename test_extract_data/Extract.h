@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:11 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 17:05:10 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:52:05 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,15 @@
 typedef struct s_data
 {
 	int		fd;
-	int		size;
-	char	**tab;
+	char	*NO;
+	char	*SO;
+	char	*WE;
+	char	*EA;
+	char	*ceiling;
+	char	*floor;
+	int		size_map;
+	char	**map;
+	char	*save_filename;
 } t_data;
 
 #endif
