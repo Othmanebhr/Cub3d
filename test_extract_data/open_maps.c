@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/04 13:50:09 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:52:16 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,4 @@ int main(int ac, char **av)
 }
 
 /* Compile : cc open_maps.c -I../libft -L../libft -lft */
-//Ne pas oublier de mak la libft avant de compiler
+//Ne pas oublier de mak la libft avant de compiler//
