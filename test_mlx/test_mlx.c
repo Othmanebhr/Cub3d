@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/05 15:29:13 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:02:56 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main()
 		return (printf("error: Window\n"), 1);
 
 	init_img(&game);
+	init_player(&game);
 	mlx_key_hook(game.win, handle_escape, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);/**/
 	mlx_loop(game.mlx);
