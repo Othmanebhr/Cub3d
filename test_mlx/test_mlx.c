@@ -6,22 +6,11 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/02 14:39:56 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/05 12:37:08 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
-#include <stdlib.h>
-#include <stdio.h>
-
-#define WIDTH 800
-#define HEIGHT 700
-
-typedef struct s_game
-{
-	void	*mlx;
-	void	*win;/**/
-}	t_game;
+#include "init_mlx.h"
 
 int	close_window(t_game *game)
 {
@@ -50,7 +39,7 @@ int main()
 		return (printf("mlx init error\n"), 1);
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (!game.win)
-		return ("error: Window\n", 1);
+		return (printf("error: Window\n"), 1);
 	mlx_key_hook(game.win, handle_escape, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);/**/
 	mlx_loop(game.mlx);
@@ -58,7 +47,7 @@ int main()
 }
 
 
-// compile = cc test.c -Lmlx -lmlx -L/usr/lib -lXext -lX11 -Imlx
+// compile = cc test_mlx.c -L../mlx -lmlx -L/usr/lib -lXext -lX11 -lm
 
 /*
 
