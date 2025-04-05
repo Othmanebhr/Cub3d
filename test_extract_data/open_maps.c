@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/04 13:52:16 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/05 12:26:55 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	count_line(int fd) //A revoir
 	int		i;
 
 	i = 0;
+	line = get_next_line(fd);
 	while (line)
 	{
-		line = get_next_line(fd);
 		i++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (i);
 }
@@ -91,6 +92,7 @@ void	get_map(t_data *data)
 		data->map[i] = get_next_line(data->fd);
 		i++;
 	}
+	data->map[i] = NULL;
 }
 
 void	print_test(t_data data)
