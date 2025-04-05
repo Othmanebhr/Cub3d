@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/05 14:40:36 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:28:51 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 typedef struct s_img
 {
-	void	*NO_img;
-	void	*So_img;
+	void	*NO_img; // a voir si passer en char *
+	void	*SO_img;
 	void	*WE_img;
 	void	*EA_img;
 }	t_img;
@@ -47,9 +47,19 @@ typedef struct s_game
 {
 	void			*mlx;
 	void			*win;//window
-	struct t_img	*imgs;
-	struct t_player	*player;
-	struct t_data	*data;
+	t_img			*imgs;
+	t_player		*player;
+	t_data			*data;
 }	t_game;
+
+/*Img*/
+void	init_img(t_game *game);
+void	free_img(t_game *game);
+
+/*Keyhook*/
+int		handle_escape(int keycode, t_game *game);
+
+/*Utils*/
+int	close_window(t_game *game);
 
 #endif
