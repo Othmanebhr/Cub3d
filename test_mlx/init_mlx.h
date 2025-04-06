@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/05 16:19:59 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:04:27 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 
 #define WIDTH 800 // a voir les dimension qu'on veut donner (prendre en compte si sur mac/dell)
 #define HEIGHT 700
+
+#define MOVE_SPD 0.1 //ici speed et distqnce veulent dire casiement la meme chose
+#define ROT_SPD 0.05 // Vitesse en radiant
 
 typedef struct s_img
 {
@@ -61,9 +64,9 @@ void	init_player(t_game *game);
 void	free_player(t_game *game);
 
 /*Keyhook*/
-int		handle_escape(int keycode, t_game *game);
+int		handle_keyhook(int keycode, t_game *game);
 
 /*Utils*/
-int	close_window(t_game *game);
+int		close_window(t_game *game);
 
 #endif
