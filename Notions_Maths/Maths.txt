@@ -20,11 +20,34 @@ Formule a connaitre:
 
 - Pour Convertir des degres en radians (En c on utilisera des radians):
 	radians = degres * (PI/180.0) (Toutes les valeurs du plan seront en double pas en int)
+
+- Calculer le vecteur de direction:
+	dir_x = cos(angle)
+	dir_Y = sin(angle)
+*l'angle est la direction vers lequel le joueur regarde (ex: il regarde a 60deg)
+
+- Calcul de deplacement:
+	delta_x = cos(angle de direction) + distance de deplacement
+	delta_y = sin(angle de direction) + distance de deplacement
+	new_x = old_pos_x + delta_x
+	new_y = old_pos_y + delta_y
+
 - Calcul de distance:
-	pour des corrdonees sous fomre (Ax, Ay) et (Bx, By) sqrt((Bx - Ax)^2 + (By - Ay)^2)
+	pour des corrdonees sous forme (Ax, Ay) et (Bx, By) sqrt((Bx - Ax)^2 + (By - Ay)^2)
 *sqrt = racine carre, ^2=Au carre (puissance 2)
 
+- Calcul de nouvelle directions de vecteur suite a une rotations:
+	new_x = old_x * cos(angle en rad) - old_y * sin(angle)
+	new_y = old_x * sin(angle) + old_y * cos(angle)
+*dans le cas d'un angle de 90deg "l'angle en rad" devient PI/2 (cf formule au dessus)
 
+
+
+- Calcul fov (deux rayons principaux)
+	1er Rayon (le plus agauche du joueur) = angle du joueur + (FOV / 2)
+	Dernier Royon (le plus a droite) = angle du joueur - (FOV / 2)
+* Le Fov on le defini nous meme (On va tres certainement prendre un angle de 60degre)
+* L'angle di joueur est la direction qu'il regarde
 
 A savoir:
 
