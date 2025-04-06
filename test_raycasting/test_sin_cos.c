@@ -6,14 +6,11 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:23:07 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/06 12:03:00 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/06 12:40:15 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define PI 3.14159265358979323846
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+#include "maths_cub.h"
 
 int	main(void)
 {
