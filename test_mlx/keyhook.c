@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 13:04:13 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:09:38 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,20 @@ static void	handle_move(t_player *player, int keycode)
 		player->pos_x += player->dir_x * MOVE_SPD;
 		player->pos_y += player->dir_y * MOVE_SPD;
 	}
-	if (keycode == 115)//s
+	else if (keycode == 115)//s
 	{
 		player->pos_x -= player->dir_x * MOVE_SPD;
 		player->pos_y -= player->dir_y * MOVE_SPD;
+	}
+	else if (keycode == 97)//a
+	{
+		player->pos_x += player->dir_y * MOVE_SPD;
+		player->pos_y -= player->dir_x * MOVE_SPD;
+	}
+	else if (keycode == 100)//d
+	{
+		player->pos_x -= player->dir_y * MOVE_SPD;
+		player->pos_y += player->dir_x * MOVE_SPD;
 	}
 }
 /*
@@ -34,7 +44,8 @@ static void	handle_rotation(t_player *player, int keycode)
 {
 	double	save_dir_x;
 	double	save_plane_x;
-	if (keycode == 65361)//f/gauche
+
+	if (keycode == 65361)//f.gauche
 	{
 		save_dir_x = player->dir_x;
 		player->dir_x = player->dir_x * cos(ROT_SPD) - player->dir_y * sin(ROT_SPD);
@@ -43,7 +54,7 @@ static void	handle_rotation(t_player *player, int keycode)
 		player->plane_x = player->plane_x * cos(ROT_SPD) - player->plane_y * sin(ROT_SPD);
 		player->plane_y = save_plane_x * sin(ROT_SPD) + player->plane_y * cos(ROT_SPD);
 	}
-	if (keycode == 65363)//f/droite
+	else if (keycode == 65363)//f.droite
 	{
 		save_dir_x = player->dir_x;
 		player->dir_x = player->dir_x * cos(-ROT_SPD) - player->dir_y * sin(-ROT_SPD);
@@ -54,11 +65,13 @@ static void	handle_rotation(t_player *player, int keycode)
 	}
 }
 
-int	handle_keyhook(int keycode, t_game *game)
+int	handle_keyhook(int kc, t_game *game)
 {
-	if (keycode == 65307)//echap
+	if (kc == 65307)//echap
 		close_window(game);
-	handle_move(game->player, keycode);
-	handle_rotation(game->player, keycode);
+	if (kc == 119 || kc == 115 || kc == 97 || kc == 100)
+		handle_move(game->player, kc);
+	if (kc == 65361 || kc == 65363)
+		handle_rotation(game->player, kc);
 	return (0);
 }
