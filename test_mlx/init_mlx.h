@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 14:02:54 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:37:30 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "../libft/libft.h"
 #include "../mlx/mlx.h"
 #include "../test_extract_data/Extract.h" // Tres certainement a changer post parsing
