@@ -6,13 +6,13 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/05 12:26:55 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:04:42 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Extract.h"
 
-int	count_line(int fd) //A revoir
+static int	count_line(int fd) //A revoir
 {
 	char	*line;
 	int		i;
@@ -28,7 +28,7 @@ int	count_line(int fd) //A revoir
 	return (i);
 }
 
-void	reinitialize_gnl_for_map(t_data *data)
+static void	reinitialize_gnl_for_map(t_data *data)
 {
 	char	*line;
 
@@ -56,7 +56,7 @@ void	reinitialize_gnl_for_map(t_data *data)
 	free(line);
 }
 
-void	get_direction(t_data *data)
+static void	get_direction(t_data *data)
 {
 	char	*line;
 
@@ -68,7 +68,7 @@ void	get_direction(t_data *data)
 	free(line);
 }
 
-void	get_ceiling_floor(t_data *data)
+static void	get_ceiling_floor(t_data *data)
 {
 	char	*line;
 
@@ -78,7 +78,7 @@ void	get_ceiling_floor(t_data *data)
 	free(line);
 }
 
-void	get_map(t_data *data)
+static void	get_map(t_data *data)
 {
 	int	i;
 
@@ -95,41 +95,46 @@ void	get_map(t_data *data)
 	data->map[i] = NULL;
 }
 
-void	print_test(t_data data)
-{
-	int	i = 0;
+// static void	print_test(t_data data)
+// {
+// 	int	i = 0;
 
-	printf("%s", data.NO);
-	printf("%s", data.SO);
-	printf("%s", data.WE);
-	printf("%s", data.EA);
-	printf("%s", data.ceiling);
-	printf("%s", data.floor);
-	while (i < data.size_map)
-	{
-		printf("%s", data.map[i]);
-		i++;
-	}
-}
+// 	printf("%s", data.NO);
+// 	printf("%s", data.SO);
+// 	printf("%s", data.WE);
+// 	printf("%s", data.EA);
+// 	printf("%s", data.ceiling);
+// 	printf("%s", data.floor);
+// 	while (i < data.size_map)
+// 	{
+// 		printf("%s", data.map[i]);
+// 		i++;
+// 	}
+// }
 
-int main(int ac, char **av)
+void	test_parse(int ac, char **av)
 {
 	t_data	data;
 	
 	if (ac != 2)
-	return (printf("format: ./cub3d 'map.cub'\n"));
+	{
+		printf("format: ./cub3d 'map.cub'\n");
+		exit(EXIT_FAILURE);
+	}
 	/*Parse*/
 	data.fd = open(av[1], O_RDONLY);
 	if (data.fd == -1)
-		return (printf("error: Failed to open file"), 1);
+	{
+		printf("error: Failed to open file");
+		exit(EXIT_FAILURE);
+	}
 	data.save_filename = ft_strdup(av[1]);	
 	get_direction(&data);
 	get_ceiling_floor(&data);
 	get_map(&data);
-	print_test(data);
-	free_dbl_tab(data.map);
+	// print_test(data);
+	// free_dbl_tab(data.map);
 	close(data.fd);
-	return (0);
 }
 
 /* Compile : cc open_maps.c -I../libft -L../libft -lft */

@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 14:40:17 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:06:42 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	check_init(t_game *game)
 	}
 }
 
-int	main()
+int	main(int ac, char **av)
 {
 	t_game	game;
 	
@@ -35,6 +35,10 @@ int	main()
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (!game.win)
 		return (printf("error: Window\n"), 1);
+
+	printf("test");
+	test_parse(ac, av);
+
 	init_img(&game);
 	check_init(&game);
 	init_player(&game);
