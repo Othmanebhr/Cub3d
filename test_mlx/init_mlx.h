@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/06 15:04:27 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 12:43:41 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define HEIGHT 700
 
 #define MOVE_SPD 0.1 //ici speed et distqnce veulent dire casiement la meme chose
-#define ROT_SPD 0.05 // Vitesse en radiant
+#define ROT_SPD 0.05 // Vitesse/distance en radiant
 
 typedef struct s_img
 {
