@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 17:04:42 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:00:05 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	get_direction(t_data *data)
 	data->SO = get_next_line(data->fd);
 	data->WE = get_next_line(data->fd);
 	data->EA = get_next_line(data->fd);
+	printf("NO = %s\n", data->NO);
 	line = get_next_line(data->fd); //Sauter le saut de ligne
 	free(line);
 }
@@ -112,29 +113,27 @@ static void	get_map(t_data *data)
 // 	}
 // }
 
-void	test_parse(int ac, char **av)
+void	test_parse(int ac, char **av, t_data *data)
 {
-	t_data	data;
-	
 	if (ac != 2)
 	{
 		printf("format: ./cub3d 'map.cub'\n");
 		exit(EXIT_FAILURE);
 	}
 	/*Parse*/
-	data.fd = open(av[1], O_RDONLY);
-	if (data.fd == -1)
+	data->fd = open(av[1], O_RDONLY);
+	if (data->fd == -1)
 	{
 		printf("error: Failed to open file");
 		exit(EXIT_FAILURE);
 	}
-	data.save_filename = ft_strdup(av[1]);	
-	get_direction(&data);
-	get_ceiling_floor(&data);
-	get_map(&data);
+	data->save_filename = ft_strdup(av[1]);	
+	get_direction(data);
+	get_ceiling_floor(data);
+	get_map(data);
 	// print_test(data);
 	// free_dbl_tab(data.map);
-	close(data.fd);
+	close(data->fd);
 }
 
 /* Compile : cc open_maps.c -I../libft -L../libft -lft */

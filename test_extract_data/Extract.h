@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:11 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 16:24:41 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:00:37 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ typedef struct s_data
 	char	*save_filename;
 } t_data;
 
-void	test_parse(int ac, char **av);
+void	test_parse(int ac, char **av, t_data *data);
 
 #endif
