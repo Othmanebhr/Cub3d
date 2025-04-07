@@ -6,46 +6,83 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 13:09:38 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:14:54 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_mlx.h"
 
-static void	handle_move(t_player *player, int keycode)
+int	handle_keypress(int keycode, t_game *game)
 {
-	if (keycode == 119)//w
+	if (keycode == 65307)
+		close_window(game);
+	else if (keycode == 119)
+		game->keys->w = 1;
+	else if (keycode == 115)
+		game->keys->s = 1;
+	else if (keycode == 97)
+		game->keys->a = 1;
+	else if (keycode == 100)
+		game->keys->d = 1;
+	else if (keycode == 65361)
+		game->keys->left = 1;
+	else if (keycode == 65363)
+		game->keys->right = 1;
+	return (0);
+}
+
+int	handle_keyrelease(int keycode, t_game *game)
+{
+	if (keycode == 119)
+		game->keys->w = 0;
+	else if (keycode == 115)
+		game->keys->s = 0;
+	else if (keycode == 97)
+		game->keys->a = 0;
+	else if (keycode == 100)
+		game->keys->d = 0;
+	else if (keycode == 65361)
+		game->keys->left = 0;
+	else if (keycode == 65363)
+		game->keys->right = 0;
+	return (0);
+}
+
+static void	handle_move(t_player *player, t_keys *key)
+{
+	if (key->w)
 	{
 		player->pos_x += player->dir_x * MOVE_SPD;
 		player->pos_y += player->dir_y * MOVE_SPD;
 	}
-	else if (keycode == 115)//s
+	else if (key->s)
 	{
 		player->pos_x -= player->dir_x * MOVE_SPD;
 		player->pos_y -= player->dir_y * MOVE_SPD;
 	}
-	else if (keycode == 97)//a
+	else if (key->a)
 	{
 		player->pos_x += player->dir_y * MOVE_SPD;
 		player->pos_y -= player->dir_x * MOVE_SPD;
 	}
-	else if (keycode == 100)//d
+	else if (key->d)
 	{
 		player->pos_x -= player->dir_y * MOVE_SPD;
 		player->pos_y += player->dir_x * MOVE_SPD;
 	}
 }
+
 /*
 formule ; (x, y) vecteur avant rotation et (x', y') post rotation, (θ) pour l'angle
 x' = x * cos(θ) - y * sin(θ)
 y' = y * sin(θ) + y * cos(θ)
 */
-static void	handle_rotation(t_player *player, int keycode)
+static void	handle_rotation(t_player *player, t_keys *key)
 {
 	double	save_dir_x;
 	double	save_plane_x;
 
-	if (keycode == 65361)//f.gauche
+	if (key->left)
 	{
 		save_dir_x = player->dir_x;
 		player->dir_x = player->dir_x * cos(ROT_SPD) - player->dir_y * sin(ROT_SPD);
@@ -54,7 +91,7 @@ static void	handle_rotation(t_player *player, int keycode)
 		player->plane_x = player->plane_x * cos(ROT_SPD) - player->plane_y * sin(ROT_SPD);
 		player->plane_y = save_plane_x * sin(ROT_SPD) + player->plane_y * cos(ROT_SPD);
 	}
-	else if (keycode == 65363)//f.droite
+	else if (key->right)
 	{
 		save_dir_x = player->dir_x;
 		player->dir_x = player->dir_x * cos(-ROT_SPD) - player->dir_y * sin(-ROT_SPD);
@@ -69,9 +106,9 @@ int	handle_keyhook(int kc, t_game *game)
 {
 	if (kc == 65307)//echap
 		close_window(game);
-	if (kc == 119 || kc == 115 || kc == 97 || kc == 100)
-		handle_move(game->player, kc);
-	if (kc == 65361 || kc == 65363)
-		handle_rotation(game->player, kc);
+	if (game->keys->a || game->keys->d || game->keys->s || game->keys->w)
+		handle_move(game->player, game->keys);
+	if (game->keys->left || game->keys->right)
+		handle_rotation(game->player, game->keys);
 	return (0);
 }

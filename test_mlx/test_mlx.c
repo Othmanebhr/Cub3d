@@ -6,17 +6,30 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/06 14:58:13 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:12:52 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_mlx.h"
 
-int main()
+/*
+Mettre a jour cette fonction une fois toutes l'init + parse ok
+*/
+static void	check_init(t_game *game)
+{
+	if (!game->imgs->EA_img || !game->imgs->NO_img 
+		|| !game->imgs->SO_img || !game->imgs->WE_img)
+	{
+		printf("error: Failed to initialize game.");
+		close_window(game);
+	}
+}
+
+int	main()
 {
 	t_game	game;
 	
-	game.mlx = mlx_init(); // avoir si le pointeur mlx et win ne doivent pas etre free
+	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (printf("mlx init error\n"), 1);
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3d");
@@ -24,8 +37,12 @@ int main()
 		return (printf("error: Window\n"), 1);
 
 	init_img(&game);
+	check_init(&game);
 	init_player(&game);
-	mlx_key_hook(game.win, handle_keyhook, &game);
+	mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
+	mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);
+	mlx_loop_hook(game.win, handle_keyhook, &game);
+	// mlx_key_hook(game.win, handle_keyhook, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);/**/
 	mlx_loop(game.mlx);
 	return (0);
@@ -33,7 +50,7 @@ int main()
 
 
 // compile = cc test_mlx.c -L../mlx -lmlx -L/usr/lib -lXext -lX11 -lm
-
+// make la libft et mlx avant
 /*
 
 void	*win --> window

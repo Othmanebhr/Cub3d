@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 12:43:41 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:02:54 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 
 #define MOVE_SPD 0.1 //ici speed et distqnce veulent dire casiement la meme chose
 #define ROT_SPD 0.05 // Vitesse/distance en radiant
+
+typedef struct s_keys
+{
+	int	a;
+	int	s;
+	int	d;
+	int	w;
+	int	right;
+	int	left;
+} t_keys;
 
 typedef struct s_img
 {
@@ -53,6 +63,7 @@ typedef struct s_game
 	t_img		*imgs;
 	t_player	*player;
 	t_data		*data;
+	t_keys		*keys;
 }	t_game;
 
 /*Img*/
@@ -65,6 +76,8 @@ void	free_player(t_game *game);
 
 /*Keyhook*/
 int		handle_keyhook(int keycode, t_game *game);
+int	handle_keypress(int keycode, t_game *game);
+int	handle_keyrelease(int keycode, t_game *game);
 
 /*Utils*/
 int		close_window(t_game *game);
