@@ -17,21 +17,15 @@ WHITE			= \033[1;37m
 ################################################################################
 
 define HEADER
+$(BLUE)
+   ______      __   _____ _____
+  / ____/_  __/ /_ |__  // __  \
+ / /   / / / / __ \ /_ </ / / /
+/ /___/ /_/ / /_/ /__/ / /_/ /
+\____/\__,_/_.___/____/\____/
 
-	$(CYAN)╔═══════ $(WHITE)by yaabdall & besch$(CYAN) ══════════════════════════╗$(DEFAULT)
-	$(CYAN)║                                                      ║$(DEFAULT)
-	$(CYAN)║                                                      ║$(DEFAULT)
-	$(CYAN)║              🎮      🎲     _____       _     ___    ║$(DEFAULT)
-	$(LIGHT_CYAN)║                     / ____|     | |   |__ \   ║$(DEFAULT)
-	$(LIGHT_CYAN)║                    | |    _   _ | |__    ) |   ║$(DEFAULT)
-	$(LIGHT_CYAN)║                    | |   | | | || '_ \  / /    ║$(DEFAULT)
-	$(LIGHT_CYAN)║                    | |___| |_| || |_) |/ /_    ║$(DEFAULT)
-	$(LIGHT_CYAN)║                     \_____\__,_||_.__/|____|   ║$(DEFAULT)
-	$(WHITE)║                                                      ║$(DEFAULT)
-	$(WHITE)╚══════════════════════════ $(CYAN)by besch & yaabdall$(WHITE) ═══════╝$(DEFAULT)
-
+$(DEFAULT)
 endef
-export HEADER
 
 ################################################################################
 #                                 PROGRESS BAR                                 #
@@ -51,89 +45,97 @@ endef
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME =			cub3D
-CC =			gcc
-CFLAGS =		-Wall -Wextra -Werror
-RM =			rm -f
+NAME			= cub3D
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
+RM				= rm -f
 
 ################################################################################
 #                                PROGRAM'S SOURCES                             #
 ################################################################################
 
 # Directory paths
-SRC =			./srcs/
-PARSING =		$(SRC)01_parsing/
-INIT =			$(SRC)02_initialization/
-OBJ =			./objs/
-MYLIB_DIR =		./my_lib/
-INCLUDES =		./includes/ $(MYLIB_DIR)includes/
+SRC				= ./srcs/
+PARSING			= $(SRC)01_parsing/
+INIT			= $(SRC)02_initialization/
+OBJ				= ./objs/
+MLX_DIR			= ./minilibx-linux/
+INCLUDES		= ./includes/ $(MLX_DIR)
 
 # Libraries
-MYLIB =			-L $(MYLIB_DIR) -l:my_lib.a
-MLX =			-lmlx -lXext -lX11 -lm
+MLX				= -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # Source files
-SRCS =			$(SRC)main.c
+SRCS			= $(SRC)main.c \
 				$(SRC)utils.c \
-				$(PARSING)parsing.c \
+				$(PARSING)parsing.c
 
-# Converts source file paths to object file paths
-OBJS =			$(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))
+# Object files
+OBJS			= $(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))
 
 ################################################################################
 #                                     RULES                                    #
 ################################################################################
 
-# Rule for compiling source files into object files
-$(OBJ)%.o:		$(SRC)%.c
-				@mkdir -p $(dir $@)
-				@$(CC) $(CFLAGS) -c $< -o $@ $(foreach dir,$(INCLUDES),-I$(dir))
-
-# Rule for creating the executable
-$(NAME):		$(OBJS)
-				@make all --no-print-directory -C $(MYLIB_DIR)
-				@echo -n "\n🔗 $(WHITE)Linking $(CYAN)$(NAME)$(DEFAULT) executable\t\t\t"
-				@$(CC) $(CFLAGS) $(OBJS) $(MYLIB) $(MLX) -o $(NAME)
-				$(PROGRESS_BAR)
-				@echo "\n$$HEADER"
-
 # Default rule
-all:			$(NAME)
+all: $(NAME)
 
-# Rule for cleaning up object files
+# MLX configuration
+mlx_config:
+	@if [ ! -f "$(MLX_DIR)/Makefile.gen" ]; then \
+		cd $(MLX_DIR) && ./configure; \
+	fi
+
+# MLX compilation
+$(MLX_DIR)libmlx.a: mlx_config
+	@make -C $(MLX_DIR)
+
+# Object files compilation
+$(OBJ)%.o: $(SRC)%.c
+	@mkdir -p $(dir $@)
+	@echo "$(CYAN)Compiling $< into $@$(DEFAULT)"
+	@$(CC) $(CFLAGS) -c $< -o $@ $(foreach dir,$(INCLUDES),-I$(dir))
+
+# Main executable compilation
+$(NAME): $(MLX_DIR)libmlx.a $(OBJS)
+	@echo -n "\n🔗 $(WHITE)Linking $(CYAN)$(NAME)$(DEFAULT) executable\t\t\t"
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
+	$(PROGRESS_BAR)
+	@echo "\n$$HEADER"
+	@echo "$(GREEN)$(NAME) compiled successfully$(DEFAULT)"
+
+# Clean rule
 clean:
-				@make clean --no-print-directory -C $(MYLIB_DIR)
-				@echo -n "\n🧹 $(RED)Cleaning up$(DEFAULT) project object files\t\t"
-				@$(RM) -r $(OBJ)
-				$(PROGRESS_BAR)
-				@echo ""
+	@if [ -f "$(MLX_DIR)Makefile.gen" ]; then \
+		make clean -C $(MLX_DIR); \
+	fi
+	@echo -n "\n🧹 $(RED)Cleaning up$(DEFAULT) project object files\t\t"
+	@$(RM) -r $(OBJ)
+	$(PROGRESS_BAR)
 
-# Full clean rule (objects files and executable)
-fclean:			clean
-				@make fclean --no-print-directory -C $(MYLIB_DIR)
-				@echo -n "\n🗑️  $(RED)Deleting $(CYAN)$(NAME)$(DEFAULT) executable\t\t"
-				@$(RM) $(NAME)
-				$(PROGRESS_BAR)
-				@echo ""
+# Full clean rule
+fclean: clean
+	@echo -n "\n🗑️  $(RED)Deleting $(CYAN)$(NAME)$(DEFAULT) executable\t\t"
+	@$(RM) $(NAME)
+	$(PROGRESS_BAR)
 
 # Rebuild rule
-re:				fclean all
+re: fclean all
 
-# Rule to compile the program with debugging flags
-debug:			$(OBJS)
-				@make all --no-print-directory -C $(MYLIB_DIR)
-				@echo -n "\n🔗 $(CYAN)Compiling in debug mode $(DEFAULT)\t\t\t"
-				@$(CC) $(CFLAGS) $(OBJS) $(MYLIB) $(MLX) -o $(NAME) -g3 -fsanitize=address
-				$(PROGRESS_BAR)
-				@echo "$$HEADER"
+# Debug rule
+debug: $(MLX_DIR)libmlx.a $(OBJS)
+	@echo -n "\n🔗 $(CYAN)Compiling in debug mode $(DEFAULT)\t\t\t"
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME) -g3 -fsanitize=address
+	$(PROGRESS_BAR)
 
-# Rule to display help
+# Help target
 help:
-				@echo "\n$(CYAN)all$(DEFAULT)		- Build the executable $(NAME)"
-				@echo "$(CYAN)clean$(DEFAULT)		- Clean up object files"
-				@echo "$(CYAN)fclean$(DEFAULT)		- Clean up all object files and executables"
-				@echo "$(CYAN)re$(DEFAULT)		- Rebuild the entire project"
-				@echo "$(CYAN)debug$(DEFAULT)		- Run the program with debugging flags -g3\n"
+	@echo "$(CYAN)Available commands:$(DEFAULT)"
+	@echo "  make all     : Build the $(NAME) executable"
+	@echo "  make clean   : Remove object files"
+	@echo "  make fclean  : Remove object files and executable"
+	@echo "  make re      : Rebuild from scratch"
+	@echo "  make debug   : Build with debug flags"
+	@echo "  make help    : Display this help message"
 
-# Rule to ensure that these targets are always executed as intended, even if there are files with the same name
-.PHONY:			all clean fclean re debug help
+.PHONY: all clean fclean re debug mlx_config help

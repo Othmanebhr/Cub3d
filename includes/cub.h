@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/03 18:56:11 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/09 18:31:02 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <math.h>
-// # include <mlx.h>
-# include "get_next_line_bonus.h"
-# include "gc.h"
+# include "../my_lib/includes/gc.h"
+# include "../my_lib/includes/get_next_line_bonus.h"
+# include "../my_lib/includes/libft.h"
 
 /* -------------------------------------------------------------------------- */
 /*                                  DEFINES                                   */
