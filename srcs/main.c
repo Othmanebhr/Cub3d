@@ -1,8 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/10 19:36:32 by besch             #+#    #+#             */
+/*   Updated: 2025/04/10 20:06:23 by besch            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	printf("ok");
+	t_game	game;
+
+	if (ac != 2)
+		return (ft_error("Error\nCorrect usage: ./cub3D <map.cub>\n"));
+	ft_memset(&game, 0, sizeof(t_game));
+	if (initialize_game(&game, av[1]) == -1)
+		return (-1);
+
 }
