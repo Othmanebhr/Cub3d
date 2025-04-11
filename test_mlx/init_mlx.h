@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 14:37:30 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:53:25 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	free_player(t_game *game);
 
 /*Keyhook*/
 int		handle_keyhook(int keycode, t_game *game);
-int	handle_keypress(int keycode, t_game *game);
-int	handle_keyrelease(int keycode, t_game *game);
+int		handle_keypress(int keycode, t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
 
 /*Utils*/
-int		close_window(t_game *game);
+int		close_window(t_game *game, char *str);
 
 #endif

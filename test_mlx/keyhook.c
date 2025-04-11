@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 14:14:54 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:52:57 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == 65307)
-		close_window(game);
+		close_window(game, "Thanks for playing!");
 	else if (keycode == 119)
 		game->keys->w = 1;
 	else if (keycode == 115)
@@ -105,7 +105,7 @@ static void	handle_rotation(t_player *player, t_keys *key)
 int	handle_keyhook(int kc, t_game *game)
 {
 	if (kc == 65307)//echap
-		close_window(game);
+		close_window(game, "Thanks for playing!");//exit value a changer potentiellement
 	if (game->keys->a || game->keys->d || game->keys->s || game->keys->w)
 		handle_move(game->player, game->keys);
 	if (game->keys->left || game->keys->right)

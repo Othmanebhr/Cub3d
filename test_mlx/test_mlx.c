@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 18:00:49 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:53:58 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ static void	check_init(t_game *game)
 {
 	if (!game->imgs->EA_img || !game->imgs->NO_img 
 		|| !game->imgs->SO_img || !game->imgs->WE_img)
-	{
-		printf("error: Failed to initialize game.");
-		close_window(game);
-	}
+		close_window(game, "error: Failed to initialize game.");
 }
 
 int main(int ac, char **av)
@@ -46,13 +43,13 @@ int main(int ac, char **av)
     // Init keys
     game.keys = malloc(sizeof(t_keys));
     if (!game.keys)
-        return (close_window(&game), 1);
+        return (close_window(&game, "error: Failed to init Keys"), 1);
     ft_memset(game.keys, 0, sizeof(t_keys));
     
     // Init data pour le parsing
     game.data = malloc(sizeof(t_data));
     if (!game.data)
-        return (close_window(&game), 1);
+        return (close_window(&game, "error: Failed to init data"), 1);
 
     printf("Starting parsing...\n");
     test_parse(ac, av, game.data);
@@ -61,7 +58,7 @@ int main(int ac, char **av)
     init_img(&game);
     check_init(&game);
     
-    printf("Initializing player...\n");
+    printf("Initializing player...\n"); // ON EST ICI
     init_player(&game);
 
     // Configurer les hooks

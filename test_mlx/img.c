@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img.c                                              :+:      :+:    :+:   */
+/*   img2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 15:25:30 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/09 19:49:18 by obouhour         ###   ########.fr       */
+/*   Created: 2025/04/11 11:36:30 by obouhour          #+#    #+#             */
+/*   Updated: 2025/04/11 11:48:37 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,56 +28,53 @@ void	free_img(t_game *game)
 	}
 }
 
-void init_img(t_game *game)
+static void	trim_trailing_whitespace(char *str) //a retirer une fois le parsing fais
 {
-    int width;
-    int height;
+	size_t	len;
+	
+	len = ft_strlen(str);
+	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t' 
+			|| str[len - 1] == '\n' || str[len - 1] == '\r'))
+	{
+		str[len - 1] = '\0';
+		len--;
+	}
+}
 
-    game->imgs = malloc(sizeof(t_img));
-    if (!game->imgs)
-    {
-        printf("error: Failed to initialize img\n");
-        close_window(game);
-    }
-    
-    // Initialize pointers to NULL
-    game->imgs->NO_img = NULL;
-    game->imgs->SO_img = NULL;
-    game->imgs->WE_img = NULL;
-    game->imgs->EA_img = NULL;
+static void	init_check_struct(t_game *game)
+{
+	game->imgs->NO_img = NULL;
+	game->imgs->SO_img = NULL;
+	game->imgs->WE_img = NULL;
+	game->imgs->EA_img = NULL;
+	if (!game->data || !game->data->NO || !game->data->SO || 
+		!game->data->WE || !game->data->EA)
+		close_window(game, "error: Invalid texture paths");
+	trim_trailing_whitespace(game->data->NO);// a retirer post parsing
+	trim_trailing_whitespace(game->data->SO);
+	trim_trailing_whitespace(game->data->WE);
+	trim_trailing_whitespace(game->data->EA);
+}
 
-    // Check paths
-    if (!game->data || !game->data->NO || !game->data->SO || 
-        !game->data->WE || !game->data->EA)
-    {
-        printf("error: Invalid texture paths\n");
-        close_window(game);
-    }
+void	init_img(t_game *game)
+{
+	int	width;
+	int	height;
 
-    // Debug print
-    printf("Loading textures from:\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n",
-        game->data->NO, game->data->SO, game->data->WE, game->data->EA);
-
-    // Load textures only once
-    if (!(game->imgs->NO_img = mlx_xpm_file_to_image(game->mlx, game->data->NO, &width, &height)))
-    {
-        perror("mlx_xpm_file_to_image failed"); // Ajoutez cette ligne
-        printf("error: Failed to load NO texture: %s\n", game->data->NO);
-        close_window(game);
-    }
-    if (!(game->imgs->SO_img = mlx_xpm_file_to_image(game->mlx, game->data->SO, &width, &height)))
-    {
-        printf("error: Failed to load SO texture: %s\n", game->data->SO);
-        close_window(game);
-    }
-    if (!(game->imgs->WE_img = mlx_xpm_file_to_image(game->mlx, game->data->WE, &width, &height)))
-    {
-        printf("error: Failed to load WE texture: %s\n", game->data->WE);
-        close_window(game);
-    }
-    if (!(game->imgs->EA_img = mlx_xpm_file_to_image(game->mlx, game->data->EA, &width, &height)))
-    {
-        printf("error: Failed to load EA texture: %s\n", game->data->EA);
-        close_window(game);
-    }
+	game->imgs = malloc(sizeof(t_img));
+	if (!game->imgs)
+		close_window(game, "error: Failed to initialize img");
+	init_check_struct(game);
+	game->imgs->NO_img = mlx_xpm_file_to_image(game->mlx,game->data->NO,&width,&height);
+	if (!game->imgs->NO_img)
+		close_window(game, "error: Failed to load NO texture");
+	game->imgs->SO_img = mlx_xpm_file_to_image(game->mlx,game->data->SO,&width,&height);
+	if (!game->imgs->SO_img)
+		close_window(game, "error: Failed to load SO texture");
+	game->imgs->WE_img = mlx_xpm_file_to_image(game->mlx,game->data->WE,&width,&height);
+	if (!game->imgs->WE_img)
+		close_window(game, "error: Failed to load WE texture");
+	game->imgs->EA_img = mlx_xpm_file_to_image(game->mlx,game->data->EA,&width,&height);
+	if (!game->imgs->EA_img)
+		close_window(game, "error: Failed to load EA texture");
 }

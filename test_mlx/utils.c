@@ -6,19 +6,18 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:28:17 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/09 16:32:43 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:41:23 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_mlx.h"
 
-int close_window(t_game *game)
+int	close_window(t_game *game, char *str)
 {
+	printf("%s\n",str);
 	if (!game)
 		exit(EXIT_FAILURE);
-		
 	free_img(game);
-
 	if (game->win && game->mlx)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
