@@ -6,7 +6,7 @@
 #    By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/07 16:57:55 by obouhour          #+#    #+#              #
-#    Updated: 2025/04/07 17:02:57 by obouhour         ###   ########.fr        #
+#    Updated: 2025/04/11 14:31:11 by obouhour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ TEST_MLX_DIR = ./test_mlx
 TEST_EXTRACT_DIR = ./test_extract_data
 
 # Source files
-SRCS = $(TEST_MLX_DIR)/test_mlx.c \
+SRCS = $(TEST_MLX_DIR)/main.c \
 		$(TEST_MLX_DIR)/img.c \
 		$(TEST_MLX_DIR)/keyhook.c \
 		$(TEST_MLX_DIR)/utils.c \

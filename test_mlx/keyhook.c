@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 12:14:36 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:27:21 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,13 @@ static void	handle_rotation(t_player *player, t_keys *key)
 	}
 }
 
-int	handle_keyhook(int kc, t_game *game)
+int	handle_keyhook(t_game *game)
 {
 	if (!game->keys && !game->player)
 	{
 		printf("test\n");
 		exit(1);
 	}
-	if (kc == 65307)//echap
-		close_window(game, "Thanks for playing!");//exit value a changer potentiellement
 	if (game->keys->a || game->keys->d || game->keys->s || game->keys->w)
 		handle_move(game->player, game->keys);
 	if (game->keys->left || game->keys->right)
