@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:28:26 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 14:30:58 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:48:31 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 		return (printf("Usage: ./cub3d map.cub\n"), 1);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		return (printf("MLX init failed\n"), 1);	
+		return (printf("MLX init failed\n"), 1);
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!game.win)
 		return (free(game.mlx), printf("Window creation failed\n"), 1);
@@ -51,7 +51,7 @@ int	main(int ac, char **av)
 	init(ac, av, &game);
 	mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
 	mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);
-	mlx_loop_hook(game.mlx, handle_keyhook, &game); //Probleme init players et keys ici
+	mlx_loop_hook(game.mlx, handle_keyhook, &game);
 	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop(game.mlx);
 	return (0);

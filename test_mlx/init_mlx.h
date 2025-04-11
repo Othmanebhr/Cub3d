@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 14:26:13 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:40:05 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "../mlx/mlx.h"
 #include "../test_extract_data/Extract.h" // Tres certainement a changer post parsing
 
-#define WIDTH 800 // a voir les dimension qu'on veut donner (prendre en compte si sur mac/dell)
-#define HEIGHT 700
+#define WIDTH 1000 // a voir les dimension qu'on veut donner (prendre en compte si sur mac/dell)
+#define HEIGHT 900
 
 #define MOVE_SPD 0.1 //ici speed et distqnce veulent dire casiement la meme chose
 #define ROT_SPD 0.05 // Vitesse/distance en radiant
