@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 18:00:05 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:08:16 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	get_direction(t_data *data)
 	data->SO = get_next_line(data->fd);
 	data->WE = get_next_line(data->fd);
 	data->EA = get_next_line(data->fd);
-	printf("NO = %s\n", data->NO);
 	line = get_next_line(data->fd); //Sauter le saut de ligne
 	free(line);
 }

@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 11:53:58 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:12:46 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,13 @@ int main(int ac, char **av)
     
     printf("Initializing player...\n"); // ON EST ICI
     init_player(&game);
-
+    
     // Configurer les hooks
     mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
     mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);
-    mlx_loop_hook(game.mlx, handle_keyhook, &game);
+    mlx_loop_hook(game.mlx, handle_keyhook, &game); //Probleme init players et keys ici
     mlx_hook(game.win, 17, 0, close_window, &game);
-
-    // Démarrer la boucle principale
     mlx_loop(game.mlx);
-    
     return (0);
 }
 
