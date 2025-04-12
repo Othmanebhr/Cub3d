@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:28:26 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 14:48:31 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:42:42 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,23 @@ static void	check_init(t_game *game)
 		close_window(game, "error: Failed to initialize game.");
 }
 
+static void	init_keys(t_keys *keys)
+{
+	keys->a = 0;
+	keys->w = 0;
+	keys->d = 0;
+	keys->s = 0;
+	keys->left = 0;
+	keys->right = 0;
+}
+
 static void	init(int ac, char **av, t_game	*game)
 {
 	test_parse(ac, av, game->data);
 	init_img(game);
 	check_init(game);
 	init_player(game);
+	init_keys(game->keys);
 }
 
 int	main(int ac, char **av)
