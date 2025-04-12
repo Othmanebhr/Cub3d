@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 15:40:05 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/12 16:43:34 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "../libft/libft.h"
 #include "../mlx/mlx.h"
 #include "../test_extract_data/Extract.h" // Tres certainement a changer post parsing
+#include "raycasting/raycasting.h"
 
 #define WIDTH 1000 // a voir les dimension qu'on veut donner (prendre en compte si sur mac/dell)
 #define HEIGHT 900
@@ -28,12 +29,12 @@
 
 typedef struct s_keys
 {
-	int	a;
-	int	s;
-	int	d;
-	int	w;
-	int	right;
-	int	left;
+	int			a;
+	int			s;
+	int			d;
+	int			w;
+	int			right;
+	int			left;
 } t_keys;
 
 typedef struct s_img
