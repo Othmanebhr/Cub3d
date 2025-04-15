@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 18:30:50 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:39:09 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void	draw_wall(t_game *game, t_ray *ray, int x) //////////////// A normer
 	if (draw_start < 0) draw_start = 0;
 	int draw_end = line_height / 2 + HEIGHT / 2;
 	if (draw_end >= HEIGHT) draw_end = HEIGHT - 1;
-
 	// 1. Choisir la texture selon la face touchée
 	char *tex_addr;
 	int tex_width = 64; // largeur de la texture (à adapter)
@@ -114,7 +113,6 @@ static void	perform_dda(t_ray *ray, t_data *data)
 			ray->map_y += ray->step_y;
 			ray->side = 1; // Touché un côté horizontal (Nord/Sud)
 		}
-		
 		// Vérifier si le rayon a touché un mur
 		// Assurez-vous que map_x et map_y sont dans les limites de la carte
 		if (ray->map_y < 0 || ray->map_x < 0 || 
