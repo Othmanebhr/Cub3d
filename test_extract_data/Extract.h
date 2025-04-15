@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:38:11 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/07 18:00:37 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:34:42 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	int		size_map;
 	char	**map;
 	char	*save_filename;
+	int		map_height;
+	int		map_width;
 } t_data;
 
 void	test_parse(int ac, char **av, t_data *data);

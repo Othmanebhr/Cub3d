@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:54:08 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/12 16:46:36 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:47:26 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define RAYCASTING_H
 
 #include "../init_mlx.h"
+
+struct s_game;
+struct s_player;
 
 typedef struct s_ray
 {
@@ -33,10 +36,10 @@ typedef struct s_ray
 	double	perp_wall_dist; //distance perpendiculaire du joueur au mur
 }	t_ray;
 
+//raycasting
 void	raycasting(t_game	*game);
 
 //init struct 
 void	init_ray(t_ray *ray, t_player *player, int x);
-void	calculate_step_and_side_dist(t_ray *ray, t_player *player);
 
 #endif

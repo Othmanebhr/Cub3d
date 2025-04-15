@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:24 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 12:08:16 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:36:43 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ static void	get_ceiling_floor(t_data *data)
 	free(line);
 }
 
-static void	get_map(t_data *data)
+static void get_map(t_data *data)
 {
-	int	i;
+	int i;
+	int j;
+	int max_width;
 
 	i = 0;
+	max_width = 0;
 	data->size_map = count_line(data->fd);
 	data->map = malloc(sizeof(char *) * (data->size_map + 1));
 	close(data->fd);
@@ -90,9 +93,18 @@ static void	get_map(t_data *data)
 	while (i < data->size_map)
 	{
 		data->map[i] = get_next_line(data->fd);
+		// Calculer la largeur de chaque ligne (sans le \n)
+		j = 0;
+		while (data->map[i][j] && data->map[i][j] != '\n')
+			j++;
+		// Mettre à jour la largeur maximale
+		if (j > max_width)
+			max_width = j;
 		i++;
 	}
 	data->map[i] = NULL;
+	data->map_height = data->size_map;
+	data->map_width = max_width;
 }
 
 // static void	print_test(t_data data)
@@ -112,7 +124,7 @@ static void	get_map(t_data *data)
 // 	}
 // }
 
-void	test_parse(int ac, char **av, t_data *data)
+void test_parse(int ac, char **av, t_data *data)
 {
 	if (ac != 2)
 	{
@@ -126,7 +138,9 @@ void	test_parse(int ac, char **av, t_data *data)
 		printf("error: Failed to open file");
 		exit(EXIT_FAILURE);
 	}
-	data->save_filename = ft_strdup(av[1]);	
+	data->map_height = 0;
+	data->map_width = 0;
+	data->save_filename = ft_strdup(av[1]);
 	get_direction(data);
 	get_ceiling_floor(data);
 	get_map(data);

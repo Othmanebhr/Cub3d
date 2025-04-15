@@ -6,11 +6,12 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/12 16:44:00 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:52:12 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_mlx.h"
+#include "raycasting/raycasting.h"
 
 int	handle_keypress(int keycode, t_game *game)
 {
