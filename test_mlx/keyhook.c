@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 16:52:12 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 19:05:30 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,52 @@ int	handle_keyrelease(int keycode, t_game *game)
 		game->keys->right = 0;
 	return (0);
 }
-
-static void	handle_move(t_player *player, t_keys *key)
+static void	move_if_no_collision(t_game *game, t_player *player, double next_x, double next_y)
 {
+	int map_height = game->data->map_height;
+	int map_width = game->data->map_width;
+
+	// Vérifie les limites avant d'accéder à la map
+	if (next_x >= 0 && next_x < map_width &&
+		player->pos_y >= 0 && player->pos_y < map_height &&
+		game->data->map[(int)player->pos_y][(int)next_x] != '1')
+		player->pos_x = next_x;
+	if (next_y >= 0 && next_y < map_height &&
+		player->pos_x >= 0 && player->pos_x < map_width &&
+		game->data->map[(int)next_y][(int)player->pos_x] != '1')
+		player->pos_y = next_y;
+}
+
+static void	handle_move(t_game *game, t_player *player, t_keys *key)
+{
+	double	next_x;
+	double	next_y;
+
+	next_x = 0.0;
+	next_y = 0.0;
 	if (key->w)
 	{
-		player->pos_x += player->dir_x * MOVE_SPD;
-		player->pos_y += player->dir_y * MOVE_SPD;
+		next_x = player->pos_x + player->dir_x * MOVE_SPD;
+		next_y = player->pos_y + player->dir_y * MOVE_SPD;
+		move_if_no_collision(game, player, next_x, next_y);
 	}
 	else if (key->s)
 	{
-		player->pos_x -= player->dir_x * MOVE_SPD;
-		player->pos_y -= player->dir_y * MOVE_SPD;
+		next_x = player->pos_x - player->dir_x * MOVE_SPD;
+		next_y = player->pos_y - player->dir_y * MOVE_SPD;
+		move_if_no_collision(game, player, next_x, next_y);
 	}
 	else if (key->a)
 	{
-		player->pos_x += player->dir_y * MOVE_SPD;
-		player->pos_y -= player->dir_x * MOVE_SPD;
+		next_x = player->pos_x + player->dir_y * MOVE_SPD;
+		next_y = player->pos_y - player->dir_x * MOVE_SPD;
+		move_if_no_collision(game, player, next_x, next_y);
 	}
 	else if (key->d)
 	{
-		player->pos_x -= player->dir_y * MOVE_SPD;
-		player->pos_y += player->dir_x * MOVE_SPD;
+		next_x = player->pos_x - player->dir_y * MOVE_SPD;
+		next_y = player->pos_y + player->dir_x * MOVE_SPD;
+		move_if_no_collision(game, player, next_x, next_y);
 	}
 }
 
@@ -111,7 +135,7 @@ int	handle_keyhook(t_game *game)
 		exit(1);
 	}
 	if (game->keys->a || game->keys->d || game->keys->s || game->keys->w)
-		handle_move(game->player, game->keys);
+		handle_move(game, game->player, game->keys);
 	if (game->keys->left || game->keys->right)
 		handle_rotation(game->player, game->keys);
 	raycasting(game); //allo?
