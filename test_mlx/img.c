@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img2.c                                             :+:      :+:    :+:   */
+/*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:36:30 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 11:48:37 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:44:55 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	init_check_struct(t_game *game)
 	trim_trailing_whitespace(game->data->EA);
 }
 
-void	init_img(t_game *game)
+void	init_img(t_game *game) //ajout de protection pour les adresses
 {
 	int	width;
 	int	height;
@@ -68,13 +68,17 @@ void	init_img(t_game *game)
 	game->imgs->NO_img = mlx_xpm_file_to_image(game->mlx,game->data->NO,&width,&height);
 	if (!game->imgs->NO_img)
 		close_window(game, "error: Failed to load NO texture");
+	game->imgs->NO_addr = mlx_get_data_addr(game->imgs->NO_img, &game->imgs->bpp, &game->imgs->line_len, &game->imgs->endian);
 	game->imgs->SO_img = mlx_xpm_file_to_image(game->mlx,game->data->SO,&width,&height);
 	if (!game->imgs->SO_img)
 		close_window(game, "error: Failed to load SO texture");
+	game->imgs->SO_addr = mlx_get_data_addr(game->imgs->SO_img, &game->imgs->bpp, &game->imgs->line_len, &game->imgs->endian);
 	game->imgs->WE_img = mlx_xpm_file_to_image(game->mlx,game->data->WE,&width,&height);
 	if (!game->imgs->WE_img)
 		close_window(game, "error: Failed to load WE texture");
+	game->imgs->WE_addr = mlx_get_data_addr(game->imgs->WE_img, &game->imgs->bpp, &game->imgs->line_len, &game->imgs->endian);
 	game->imgs->EA_img = mlx_xpm_file_to_image(game->mlx,game->data->EA,&width,&height);
 	if (!game->imgs->EA_img)
 		close_window(game, "error: Failed to load EA texture");
+	game->imgs->EA_addr = mlx_get_data_addr(game->imgs->EA_img, &game->imgs->bpp, &game->imgs->line_len, &game->imgs->endian);
 }

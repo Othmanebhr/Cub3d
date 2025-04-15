@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:28:17 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/12 15:42:31 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:12:17 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	close_window(t_game *game, char *str)
 		free(game->player);
 	if (game->win && game->mlx)
 		mlx_destroy_window(game->mlx, game->win);
+	if (game->data) //a retirer post parsing
+		free(game->data);
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
