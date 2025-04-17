@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 19:36:32 by besch             #+#    #+#             */
-/*   Updated: 2025/04/17 18:09:10 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/17 19:06:27 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av)
 	ft_memset(&game, 0, sizeof(t_game));
 	if (initialize_game(av[1], &game) == 1)
 		return (gc_cleanup(&game.gc), 1);
+	gc_cleanup(&game.gc);
 	write(1, "Map parsed successfully\n", 24);
 	return (0);
 }

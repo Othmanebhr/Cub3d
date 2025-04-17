@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:00:01 by besch             #+#    #+#             */
-/*   Updated: 2025/04/17 18:08:35 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/17 19:27:02 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_cub_file(char *cub_tmp, t_game *game)
 	return (0);
 }
 
-char	*read_cub_file(int fd, t_game game)
+char	*read_cub_file(int fd, t_game *game)
 {
 	char	*line;
 	char	*content;
@@ -40,7 +40,7 @@ char	*read_cub_file(int fd, t_game game)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		content = ft_strjoin_gc(content, line, &game.gc);
+		content = ft_strjoin_gc(content, line, &game->gc);
 		free(line);
 	}
 	return (content);
@@ -57,7 +57,7 @@ int	initialize_game(char *cub_path, t_game *game)
 	fd = open(cub_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error\nFail to opening map file"));
-	cub_tmp = read_cub_file(fd, *game);
+	cub_tmp = read_cub_file(fd, game);
 	if (close(fd) == -1)
 		return (ft_error("Error\nFail to closing map file"));
 	if (!cub_tmp)
