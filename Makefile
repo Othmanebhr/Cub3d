@@ -60,15 +60,22 @@ PARSING			= $(SRC)01_parsing/
 INIT			= $(SRC)02_initialization/
 OBJ				= ./objs/
 MLX_DIR			= ./minilibx-linux/
-INCLUDES		= ./includes/ $(MLX_DIR)
+MYLIB_DIR		= ./my_lib/
+MYLIB_A			= $(MYLIB_DIR)my_lib.a
+MYLIB_INC		= $(MYLIB_DIR)includes/
+INCLUDES		= ./includes/ $(MLX_DIR) $(MYLIB_INC)
 
 # Libraries
 MLX				= -L $(MLX_DIR) -lmlx -lXext -lX11 -lm
+MYLIB			= -L $(MYLIB_DIR) -l:my_lib.a
 
 # Source files
 SRCS			= $(SRC)main.c \
 				$(SRC)utils.c \
-				$(PARSING)parsing.c
+				$(INIT)initialization.c \
+				$(PARSING)parse_textures_and_colors.c \
+				$(PARSING)parse_map.c \
+				$(PARSING)parse_map_utils.c
 
 # Object files
 OBJS			= $(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))
@@ -90,6 +97,10 @@ mlx_config:
 $(MLX_DIR)libmlx.a: mlx_config
 	@make -C $(MLX_DIR)
 
+# my_lib compilation
+$(MYLIB_A):
+	@make -C $(MYLIB_DIR)
+
 # Object files compilation
 $(OBJ)%.o: $(SRC)%.c
 	@mkdir -p $(dir $@)
@@ -97,9 +108,9 @@ $(OBJ)%.o: $(SRC)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(foreach dir,$(INCLUDES),-I$(dir))
 
 # Main executable compilation
-$(NAME): $(MLX_DIR)libmlx.a $(OBJS)
+$(NAME): $(MLX_DIR)libmlx.a $(MYLIB_A) $(OBJS)
 	@echo -n "\n🔗 $(WHITE)Linking $(CYAN)$(NAME)$(DEFAULT) executable\t\t\t"
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(MYLIB) $(MLX) -o $(NAME)
 	$(PROGRESS_BAR)
 	@echo "\n$$HEADER"
 	@echo "$(GREEN)$(NAME) compiled successfully$(DEFAULT)"
@@ -109,12 +120,14 @@ clean:
 	@if [ -f "$(MLX_DIR)Makefile.gen" ]; then \
 		make clean -C $(MLX_DIR); \
 	fi
+	@make clean -C $(MYLIB_DIR)
 	@echo -n "\n🧹 $(RED)Cleaning up$(DEFAULT) project object files\t\t"
 	@$(RM) -r $(OBJ)
 	$(PROGRESS_BAR)
 
 # Full clean rule
 fclean: clean
+	@make fclean -C $(MYLIB_DIR)
 	@echo -n "\n🗑️  $(RED)Deleting $(CYAN)$(NAME)$(DEFAULT) executable\t\t"
 	@$(RM) $(NAME)
 	$(PROGRESS_BAR)
@@ -123,9 +136,9 @@ fclean: clean
 re: fclean all
 
 # Debug rule
-debug: $(MLX_DIR)libmlx.a $(OBJS)
+debug: $(MLX_DIR)libmlx.a $(MYLIB_A) $(OBJS)
 	@echo -n "\n🔗 $(CYAN)Compiling in debug mode $(DEFAULT)\t\t\t"
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME) -g3 -fsanitize=address
+	@$(CC) $(CFLAGS) $(OBJS) $(MYLIB) $(MLX) -o $(NAME) -g3 -fsanitize=address
 	$(PROGRESS_BAR)
 
 # Help target

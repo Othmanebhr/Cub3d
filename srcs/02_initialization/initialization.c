@@ -6,21 +6,55 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:00:01 by besch             #+#    #+#             */
-/*   Updated: 2025/04/15 21:10:57 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/17 18:08:35 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	initialize_game(char *map_path, t_game *game)
+// Fonction principale
+int	parse_cub_file(char *cub_tmp, t_game *game)
+{
+	char	**lines;
+
+	lines = ft_split_gc(cub_tmp, '\n', &game->gc);
+	if (!lines)
+		return (ft_error("Error\nFail to split cub file"));
+	if (verify_textures(lines, game) == 1)
+		return (1);
+	if (verify_colors(lines, game) == 1)
+		return (1);
+	if (parse_map(lines, game) == 1)
+		return (1);
+	return (0);
+}
+
+char	*read_cub_file(int fd, t_game game)
+{
+	char	*line;
+	char	*content;
+
+	content = NULL;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		content = ft_strjoin_gc(content, line, &game.gc);
+		free(line);
+	}
+	return (content);
+}
+
+int	initialize_game(char *cub_path, t_game *game)
 {
 	int		fd;
 	char	*cub_tmp;
 
-	if (ft_strlen(map_path) < 4
-		|| ft_strncmp(map_path + ft_strlen(map_path) - 4, ".cub", 4) != 0)
+	if (ft_strlen(cub_path) < 4
+		|| ft_strncmp(cub_path + ft_strlen(cub_path) - 4, ".cub", 4) != 0)
 		return (ft_error("Error\nInvalid map file extension. Use .cub\n"));
-	fd = open(map_path, O_RDONLY);
+	fd = open(cub_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error\nFail to opening map file"));
 	cub_tmp = read_cub_file(fd, *game);
@@ -28,9 +62,7 @@ int	initialize_game(char *map_path, t_game *game)
 		return (ft_error("Error\nFail to closing map file"));
 	if (!cub_tmp)
 		return (ft_error("Error\nFail to reading map file"));
-	if (parse_cub_file(cub_tmp, game) == -1)
-	{
-		free(cub_tmp);
-		return (-1);
-	}
+	if (parse_cub_file(cub_tmp, game) == 1)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/09 18:31:02 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/17 19:03:56 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,8 @@ typedef enum e_texture_type
 {
 	NORTH,
 	SOUTH,
-	EAST,
 	WEST,
-	FLOOR,
-	CEILING
+	EAST
 }	t_texture_type;
 
 // PLAYER DIRECTION ENUM
@@ -104,8 +102,8 @@ typedef enum e_direction
 {
 	DIR_NORTH,
 	DIR_SOUTH,
-	DIR_EAST,
-	DIR_WEST
+	DIR_WEST,
+	DIR_EAST
 }	t_direction;
 
 /* -------------------------------------------------------------------------- */
@@ -168,11 +166,11 @@ typedef struct s_ray
 // MAP STRUCTURE
 typedef struct s_map
 {
-	char	**grid;
-	int		width;
-	int		height;
-	int		floor_color;
-	int		ceiling_color;
+	char		**grid;
+	int			width;
+	int			height;
+	t_color		floor_color;
+	t_color		ceiling_color;
 }	t_map;
 
 // PLAYER STRUCTURE
@@ -205,8 +203,6 @@ typedef struct s_game
 	t_map		map;
 	t_player	player;
 	t_texture	textures[NUM_TEXTURES];
-	t_color		floor_color;
-	t_color		ceiling_color;
 	int			key_w;
 	int			key_a;
 	int			key_s;
@@ -216,23 +212,21 @@ typedef struct s_game
 	t_gc		gc;
 }	t_game;
 
-/* -------------------------------------------------------------------------- */
-/*                             FUNCTION PROTOTYPES                            */
-/* -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/*                             FUNCTION PROTOTYPES                           */
+/* ------------------------------------------------------------------------- */
 
-/* ----------------------------- Initialization ----------------------------- */
-int		initialize_game(t_game *game, char *map_path);
+/* ----------------------------- Initialization ---------------------------- */
+int		initialize_game(char *cub_path, t_game *game);
 int		load_textures(t_game *game);
 void	init_player(t_game *game);
 int		setup_mlx(t_game *game);
 
-/* ------------------------------- Map Parsing ------------------------------ */
-int		parse_map(t_game *game, char *map_path);
-int		validate_map(t_game *game);
-int		parse_texture_paths(t_game *game, char *line);
-int		parse_colors(t_game *game, char *line);
-int		load_map_grid(t_game *game, int fd);
-void	find_player_position(t_game *game);
+/* -------------------------------- Parsing -------------------------------- */
+int		verify_textures(char **lines, t_game *game);
+int		verify_colors(char **lines, t_game *game);
+int		parse_map(char **lines, t_game *game);
+int		check_map_lines(char **lines, int start, int end);
 
 /* ------------------------------- Rendering ------------------------------- */
 int		render_frame(t_game *game);
@@ -244,7 +238,7 @@ void	perform_dda(t_game *game, t_ray *ray);
 void	calculate_wall_distance(t_ray *ray);
 void	calculate_wall_texture(t_game *game, t_ray *ray);
 
-/* --------------------------- Player Movement ---------------------------- */
+/* ---------------------------- Player Movement ---------------------------- */
 void	move_player(t_game *game);
 void	move_forward(t_game *game);
 void	move_backward(t_game *game);
@@ -263,9 +257,6 @@ int		key_release(int keycode, t_game *game);
 int		close_window(t_game *game);
 
 /* ------------------------------- Utilities ------------------------------- */
-void	clean_up(t_game *game);
-int		create_rgb(int r, int g, int b);
-void	error_exit(t_game *game, char *message);
-void	set_gc_node_locked(t_gc *gc, void *ptr, bool lock);
+int		ft_error(char *str);
 
 #endif
