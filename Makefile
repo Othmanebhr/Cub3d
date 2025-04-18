@@ -73,7 +73,8 @@ MYLIB			= -L $(MYLIB_DIR) -l:my_lib.a
 SRCS			= $(SRC)main.c \
 				$(SRC)utils.c \
 				$(INIT)initialization.c \
-				$(PARSING)parse_textures_and_colors.c \
+				$(PARSING)parse_elements.c \
+				$(PARSING)parse_elements_utils.c \
 				$(PARSING)parse_map.c \
 				$(PARSING)parse_map_utils.c
 

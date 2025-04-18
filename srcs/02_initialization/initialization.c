@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:00:01 by besch             #+#    #+#             */
-/*   Updated: 2025/04/17 19:27:02 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/18 19:48:21 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	parse_cub_file(char *cub_tmp, t_game *game)
 	lines = ft_split_gc(cub_tmp, '\n', &game->gc);
 	if (!lines)
 		return (ft_error("Error\nFail to split cub file"));
-	if (verify_textures(lines, game) == 1)
-		return (1);
-	if (verify_colors(lines, game) == 1)
+	if (verify_elements(lines, game) == 1)
 		return (1);
 	if (parse_map(lines, game) == 1)
 		return (1);
@@ -51,9 +49,9 @@ int	initialize_game(char *cub_path, t_game *game)
 	int		fd;
 	char	*cub_tmp;
 
-	if (ft_strlen(cub_path) < 4
+	if (ft_strlen(cub_path) < 5
 		|| ft_strncmp(cub_path + ft_strlen(cub_path) - 4, ".cub", 4) != 0)
-		return (ft_error("Error\nInvalid map file extension. Use .cub\n"));
+		return (ft_error("Error\nInvalid map file extension. Use .cub"));
 	fd = open(cub_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error\nFail to opening map file"));

@@ -76,6 +76,7 @@ SRCS =	       	$(LIBFT)ft_strchr.c \
         	    $(LIBFT)ft_strrchr.c \
         	    $(LIBFT)ft_putstr_fd.c \
         	    $(LIBFT)ft_isalpha.c \
+        	    $(LIBFT)ft_strcmp.c \
         	    $(LIBFT)ft_strncmp.c \
         	    $(LIBFT)ft_isalnum.c \
         	    $(LIBFT)ft_memcpy.c \

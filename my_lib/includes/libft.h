@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaabdall <yaabdall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:33:01 by yaabdall          #+#    #+#             */
-/*   Updated: 2024/12/13 19:53:04 by yaabdall         ###   ########.fr       */
+/*   Updated: 2025/04/18 20:11:00 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strchr(const char *string, int searchedChar);
 char	*ft_strrchr(const char *string, int searchedChar);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t len);
 void	*ft_memchr(const void *s, int c, size_t size);
 int		ft_memcmp(const void *s1, const void *s2, size_t size);

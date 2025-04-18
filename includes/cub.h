@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/17 19:03:56 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/18 20:26:45 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,15 @@ typedef enum e_direction
 /* -------------------------------------------------------------------------- */
 /*                                 STRUCTURES                                 */
 /* -------------------------------------------------------------------------- */
+
+// PARSE ELEMENTS STRUCTURE
+typedef struct s_parse_elements
+{
+	char	**tokens;
+	int		found_textures[4];
+	int		found_floor;
+	int		found_ceiling;
+}	t_parse_elements;
 
 // POINT/VECTOR STRUCTURE
 typedef struct s_vec2
@@ -223,8 +232,10 @@ void	init_player(t_game *game);
 int		setup_mlx(t_game *game);
 
 /* -------------------------------- Parsing -------------------------------- */
-int		verify_textures(char **lines, t_game *game);
-int		verify_colors(char **lines, t_game *game);
+int		verify_elements(char **lines, t_game *game);
+int		handle_texture(t_parse_elements *pe, t_game *game, int idx);
+int		handle_color(t_parse_elements *pe, t_game *game);
+bool	is_map_line(const char *line);
 int		parse_map(char **lines, t_game *game);
 int		check_map_lines(char **lines, int start, int end);
 
