@@ -1,29 +1,5 @@
 #include "cub.h"
 
-static int	copy_map_to_game(char **lines, t_game *game, int start, int end)
-{
-	int	i;
-	int	map_height;
-
-	map_height = end - start + 1;
-	game->map.grid = gc_malloc(sizeof(char *) * (map_height + 1), &game->gc);
-	if (!game->map.grid)
-		return (ft_error("Error\nMalloc failed for map"));
-	i = -1;
-	while (++i < map_height)
-		game->map.grid[i] = ft_strdup_gc(lines[start + i], &game->gc);
-	game->map.grid[map_height] = NULL;
-	game->map.height = map_height;
-	game->map.width = 0;
-	i = -1;
-	while (++i < map_height)
-	{
-		if ((int)ft_strlen(game->map.grid[i]) > game->map.width)
-			game->map.width = ft_strlen(game->map.grid[i]);
-	}
-	return (0);
-}
-
 // Vérifie si une case vide/joueur est bien entourée
 static int	is_cell_closed(char **grid, int i, int j, int height)
 {
@@ -69,18 +45,44 @@ static int	is_map_closed(char **grid, int height)
 	return (0);
 }
 
+static bool	has_map_line_after(char **lines, int i)
+{
+	while (lines[i])
+	{
+		if (is_map_line(lines[i]) == true)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 static int	find_map_limits(char **lines, int *start, int *end)
 {
-	*start = 6;
-	while (lines[*start] && lines[*start][0] == '\0')
-		(*start)++;
-	*end = *start;
-	while (lines[*end])
-		(*end)++;
-	(*end)--;
-	while (*end > *start && lines[*end][0] == '\0')
-		(*end)--;
-	return (0);
+	int	i;
+
+	*start = -1;
+	i = 0;
+	while (lines[i])
+	{
+		if (*start == -1 && is_map_line(lines[i]))
+			*start = i;
+		else if (*start != -1
+			&& (!is_map_line(lines[i]) || lines[i][0] == '\0'))
+		{
+			if (has_map_line_after(lines, i + 1) == true)
+				return (ft_error
+					("Error\nEmpty line inside map is not allowed"));
+			*end = i - 1;
+			return (0);
+		}
+		i++;
+	}
+	if (*start != -1)
+	{
+		*end = i - 1;
+		return (0);
+	}
+	return (1);
 }
 
 int	parse_map(char **lines, t_game *game)
@@ -88,7 +90,8 @@ int	parse_map(char **lines, t_game *game)
 	int	start;
 	int	end;
 
-	find_map_limits(lines, &start, &end);
+	if (find_map_limits(lines, &start, &end) != 0)
+		return (1);
 	if (check_map_lines(lines, start, end) != 0)
 		return (1);
 	if (copy_map_to_game(lines, game, start, end) != 0)

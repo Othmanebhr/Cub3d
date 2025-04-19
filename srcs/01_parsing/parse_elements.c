@@ -16,9 +16,8 @@ bool	is_map_line(const char *line)
 	// Vérifie que la ligne ne contient QUE des caractères valides pour la map
 	while (line[i])
 	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != 'N'
-			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
-			&& line[i] != ' ')
+		if (line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
+			&& line[i] != '0' && line[i] != '1' && line[i] != ' ')
 			return (false);
 		i++;
 	}
@@ -42,22 +41,30 @@ static int	dispatch_element(t_parse_elements *pe, t_game *game)
 		return (ft_error("Error\nUnknown identifier"));
 }
 
+static bool	is_line_empty(const char *line)
+{
+	int	i;
+
+	i = -1;
+	if (!line)
+		return (true);
+	while (line[++i])
+		if (line[i] != ' ' && line[i] != '\t'
+			&& line[i] != '\0' && line[i] != '\n')
+			return (false);
+	return (true);
+}
+
 int	verify_elements(char **lines, t_game *game)
 {
 	t_parse_elements	pe;
 	int					i;
 
-	pe.tokens = NULL;
-	pe.found_textures[0] = 0;
-	pe.found_textures[1] = 0;
-	pe.found_textures[2] = 0;
-	pe.found_textures[3] = 0;
-	pe.found_floor = 0;
-	pe.found_ceiling = 0;
+	ft_memset(&pe, 0, sizeof(t_parse_elements));
 	i = -1;
 	while (lines[++i] && is_map_line(lines[i]) == false)
 	{
-		if (lines[i][0] == '\0') // Ignore ligne vide
+		if (is_line_empty(lines[i]) == true)
 			continue ;
 		pe.tokens = ft_split_gc(lines[i], ' ', &game->gc);
 		if (!pe.tokens || !pe.tokens[0] || !pe.tokens[1] || pe.tokens[2])
@@ -65,9 +72,8 @@ int	verify_elements(char **lines, t_game *game)
 		if (dispatch_element(&pe, game) == 1)
 			return (1);
 	}
-	if (pe.found_textures[0] != 1 || pe.found_textures[1] != 1
-		|| pe.found_textures[2] != 1 || pe.found_textures[3] != 1
-		|| pe.found_floor != 1 || pe.found_ceiling != 1)
+	if (!pe.found_na || !pe.found_so || !pe.found_we || !pe.found_ea
+		|| !pe.found_floor || !pe.found_ceiling)
 		return (ft_error("Error\nMissing or duplicate element(s)"));
 	return (0);
 }

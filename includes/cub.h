@@ -114,9 +114,12 @@ typedef enum e_direction
 typedef struct s_parse_elements
 {
 	char	**tokens;
-	int		found_textures[4];
-	int		found_floor;
-	int		found_ceiling;
+	bool	found_na;
+	bool	found_so;
+	bool	found_we;
+	bool	found_ea;
+	bool	found_floor;
+	bool	found_ceiling;
 }	t_parse_elements;
 
 // POINT/VECTOR STRUCTURE
@@ -238,6 +241,7 @@ int		handle_color(t_parse_elements *pe, t_game *game);
 bool	is_map_line(const char *line);
 int		parse_map(char **lines, t_game *game);
 int		check_map_lines(char **lines, int start, int end);
+int		copy_map_to_game(char **lines, t_game *game, int start, int end);
 
 /* ------------------------------- Rendering ------------------------------- */
 int		render_frame(t_game *game);
