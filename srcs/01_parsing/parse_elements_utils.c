@@ -1,5 +1,29 @@
 #include "cub.h"
 
+static bool	is_valid_rgb_number(const char *s)
+{
+	int	i;
+
+	i = 0;
+
+	// Skip leading spaces
+	while (s[i] == ' ')
+		i++;
+	// Optional sign not allowed for RGB
+	if (s[i] == '-' || s[i] == '+')
+		return (false);
+	// At least one digit
+	if (!ft_isdigit(s[i]))
+		return (false);
+	while (ft_isdigit(s[i]))
+		i++;
+	// Skip trailing spaces
+	while (s[i] == ' ')
+		i++;
+	// Should be end of string
+	return (s[i] == '\0');
+}
+
 static bool	is_rgb_ok(char *str, t_color *color, t_game *game)
 {
 	char	**split;
@@ -9,6 +33,9 @@ static bool	is_rgb_ok(char *str, t_color *color, t_game *game)
 
 	split = ft_split_gc(str, ',', &game->gc);
 	if (!split || !split[0] || !split[1] || !split[2] || split[3])
+		return (false);
+	if (!is_valid_rgb_number(split[0]) || !is_valid_rgb_number(split[1])
+		|| !is_valid_rgb_number(split[2]))
 		return (false);
 	r = ft_atoi(split[0]);
 	g = ft_atoi(split[1]);

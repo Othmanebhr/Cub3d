@@ -55,8 +55,6 @@ char	**read_cub_file(int fd, t_game *game)
 	count = 0;
 	cap = 64;
 	lines = gc_malloc(sizeof(char *) * cap, &game->gc);
-	if (!lines)
-		return (NULL);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -66,7 +64,9 @@ char	**read_cub_file(int fd, t_game *game)
 			cap *= 2;
 			lines = resize_lines(lines, cap, count, game);
 		}
-		lines[count++] = line;
+		lines[count++] = gc_malloc(ft_strlen(line) + 1, &game->gc);
+		ft_strlcpy(lines[count - 1], line, ft_strlen(line) + 1);
+		free(line);
 		line = get_next_line(fd);
 	}
 	lines[count] = NULL;
