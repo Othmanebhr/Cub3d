@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:36:30 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 18:44:55 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:25:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_mlx.h"
+
+data
 
 void	free_img(t_game *game)
 {

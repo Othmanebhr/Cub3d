@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/18 20:26:45 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/20 20:34:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,30 +141,30 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
-// RAY STRUCTURE
-typedef struct s_ray
-{
-	t_vec2	pos;
-	t_vec2	dir;
-	t_vec2	plane;
-	t_vec2	ray_dir;
-	t_vec2	side_dist;
-	t_vec2	delta_dist;
-	double	perp_wall_dist;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		tex_num;
-	double	wall_x;
-	int		tex_x;
-	double	tex_pos;
-	int		tex_y;
-}	t_ray;
+// // RAY STRUCTURE
+// typedef struct s_ray
+// {
+// 	t_vec2	pos;
+// 	t_vec2	dir;
+// 	t_vec2	plane;
+// 	t_vec2	ray_dir;
+// 	t_vec2	side_dist;
+// 	t_vec2	delta_dist;
+// 	double	perp_wall_dist;
+// 	int		map_x;
+// 	int		map_y;
+// 	int		step_x;
+// 	int		step_y;
+// 	int		side;
+// 	int		line_height;
+// 	int		draw_start;
+// 	int		draw_end;
+// 	int		tex_num;
+// 	double	wall_x;
+// 	int		tex_x;
+// 	double	tex_pos;
+// 	int		tex_y;
+// }	t_ray;
 
 // MAP STRUCTURE
 typedef struct s_map
@@ -185,33 +185,14 @@ typedef struct s_player
 	t_direction	start_dir;
 }	t_player;
 
-// IMAGE STRUCTURE
-typedef struct s_img
-{
-	void	*img;
-	int		*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}	t_img;
-
 // GAME STRUCTURE
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
 	t_map		map;
 	t_player	player;
 	t_texture	textures[NUM_TEXTURES];
-	int			key_w;
-	int			key_a;
-	int			key_s;
-	int			key_d;
-	int			key_left;
-	int			key_right;
 	t_gc		gc;
 }	t_game;
 
@@ -221,9 +202,6 @@ typedef struct s_game
 
 /* ----------------------------- Initialization ---------------------------- */
 int		initialize_game(char *cub_path, t_game *game);
-int		load_textures(t_game *game);
-void	init_player(t_game *game);
-int		setup_mlx(t_game *game);
 
 /* -------------------------------- Parsing -------------------------------- */
 int		verify_elements(char **lines, t_game *game);
@@ -234,34 +212,6 @@ int		parse_map(char **lines, t_game *game);
 int		check_map_lines(char **lines, int start, int end);
 int		check_player_spawn(char **lines, t_game *game, int start, int end);
 int		copy_map_to_game(char **lines, t_game *game, int start, int end);
-
-/* ------------------------------- Rendering ------------------------------- */
-int		render_frame(t_game *game);
-void	cast_rays(t_game *game);
-void	draw_walls(t_game *game, t_ray *ray, int x);
-void	draw_floor_ceiling(t_game *game);
-void	calculate_ray(t_game *game, t_ray *ray, int x);
-void	perform_dda(t_game *game, t_ray *ray);
-void	calculate_wall_distance(t_ray *ray);
-void	calculate_wall_texture(t_game *game, t_ray *ray);
-
-/* ---------------------------- Player Movement ---------------------------- */
-void	move_player(t_game *game);
-void	move_forward(t_game *game);
-void	move_backward(t_game *game);
-void	move_left(t_game *game);
-void	move_right(t_game *game);
-void	rotate_left(t_game *game);
-void	rotate_right(t_game *game);
-
-/* ------------------------------- Texturing ------------------------------- */
-int		load_texture(t_game *game, t_texture *texture, char *path);
-void	apply_texture(t_game *game, t_ray *ray, int x);
-
-/* ------------------------------ Input Handling --------------------------- */
-int		key_press(int keycode, t_game *game);
-int		key_release(int keycode, t_game *game);
-int		close_window(t_game *game);
 
 /* ------------------------------- Utilities ------------------------------- */
 int		ft_error(char *str);

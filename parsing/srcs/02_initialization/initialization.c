@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:00:01 by besch             #+#    #+#             */
-/*   Updated: 2025/04/18 19:48:21 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/20 20:14:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ char	**read_cub_file(int fd, t_game *game)
 	return (lines);
 }
 
-// static void	print_cub_tmp(char **cub_tmp)
-// {
-// 	int	i;
+static void	print_cub_tmp(char **cub_tmp)
+{
+	int	i;
 
-// 	i = -1;
-// 	while (cub_tmp && cub_tmp[++i])
-// 		printf("[%d]: \"%s\"\n", i, cub_tmp[i]);
-// }
+	i = -1;
+	while (cub_tmp && cub_tmp[++i])
+		printf("[%d]: \"%s\"\n", i, cub_tmp[i]);
+}
 
 int	initialize_game(char *cub_path, t_game *game)
 {
@@ -98,7 +98,7 @@ int	initialize_game(char *cub_path, t_game *game)
 		return (ft_error("Error\nFail to closing map file"));
 	if (!cub_tmp)
 		return (ft_error("Error\nFail to reading map file"));
-	// print_cub_tmp(cub_tmp);
+	print_cub_tmp(cub_tmp);
 	if (parse_cub_file(cub_tmp, game) == 1)
 		return (1);
 	return (0);

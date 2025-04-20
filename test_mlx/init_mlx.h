@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 18:22:12 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:23:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../libft/libft.h"
-#include "../mlx/mlx.h"
-#include "../test_extract_data/Extract.h" // Tres certainement a changer post parsing
+#include "./libft/libft.h"
+#include "../../mlx/mlx.h"
+// #include "../test_extract_data/Extract.h" // Tres certainement a changer post parsing
 
 #define WIDTH 1000 // a voir les dimension qu'on veut donner (prendre en compte si sur mac/dell)
 #define HEIGHT 900
