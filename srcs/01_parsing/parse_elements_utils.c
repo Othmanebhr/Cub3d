@@ -1,5 +1,43 @@
 #include "cub.h"
 
+static bool	is_texture_file_ok(char *path)
+{
+	int		fd;
+	size_t	len;
+
+	len = ft_strlen(path);
+	if (len < 5 || ft_strncmp(path + len - 4, ".xpm", 4) != 0)
+		return (false);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	close(fd);
+	return (true);
+}
+
+int	handle_texture(t_parse_elements *pe, t_game *game, int idx)
+{
+	bool	*found;
+
+	if (idx == 0)
+		found = &pe->found_na;
+	else if (idx == 1)
+		found = &pe->found_so;
+	else if (idx == 2)
+		found = &pe->found_we;
+	else if (idx == 3)
+		found = &pe->found_ea;
+	else
+		return (ft_error("Error\nInvalid texture index"));
+	if (*found)
+		return (ft_error("Error\nDuplicate texture"));
+	*found = true;
+	if (is_texture_file_ok(pe->tokens[1]) == false)
+		return (ft_error("Error\nTexture file not accessible"));
+	game->textures[idx].path = ft_strdup_gc(pe->tokens[1], &game->gc);
+	return (0);
+}
+
 static bool	is_valid_rgb_number(const char *s)
 {
 	int	i;
@@ -46,40 +84,6 @@ static bool	is_rgb_ok(char *str, t_color *color, t_game *game)
 	color->g = g;
 	color->b = b;
 	return (true);
-}
-
-static bool	is_texture_file_ok(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
-}
-
-int	handle_texture(t_parse_elements *pe, t_game *game, int idx)
-{
-	bool	*found;
-
-	if (idx == 0)
-		found = &pe->found_na;
-	else if (idx == 1)
-		found = &pe->found_so;
-	else if (idx == 2)
-		found = &pe->found_we;
-	else if (idx == 3)
-		found = &pe->found_ea;
-	else
-		return (ft_error("Error\nInvalid texture index"));
-	if (*found)
-		return (ft_error("Error\nDuplicate texture"));
-	*found = true;
-	if (is_texture_file_ok(pe->tokens[1]) == false)
-		return (ft_error("Error\nTexture file not accessible"));
-	game->textures[idx].path = ft_strdup_gc(pe->tokens[1], &game->gc);
-	return (0);
 }
 
 int	handle_color(t_parse_elements *pe, t_game *game)

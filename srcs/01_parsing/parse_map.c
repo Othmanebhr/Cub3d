@@ -61,13 +61,13 @@ static int	find_map_limits(char **lines, int *start, int *end)
 	int	i;
 
 	*start = -1;
-	i = 0;
-	while (lines[i])
+	i = -1;
+	while (lines[++i])
 	{
-		if (*start == -1 && is_map_line(lines[i]))
+		if (*start == -1 && is_map_line(lines[i]) == true)
 			*start = i;
 		else if (*start != -1
-			&& (!is_map_line(lines[i]) || lines[i][0] == '\0'))
+			&& (is_map_line(lines[i]) == false || lines[i][0] == '\0'))
 		{
 			if (has_map_line_after(lines, i + 1) == true)
 				return (ft_error
@@ -75,7 +75,6 @@ static int	find_map_limits(char **lines, int *start, int *end)
 			*end = i - 1;
 			return (0);
 		}
-		i++;
 	}
 	if (*start != -1)
 	{
@@ -93,6 +92,8 @@ int	parse_map(char **lines, t_game *game)
 	if (find_map_limits(lines, &start, &end) != 0)
 		return (1);
 	if (check_map_lines(lines, start, end) != 0)
+		return (1);
+	if (check_player_spawn(lines, game, start, end) != 0)
 		return (1);
 	if (copy_map_to_game(lines, game, start, end) != 0)
 		return (1);

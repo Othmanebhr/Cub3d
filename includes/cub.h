@@ -88,22 +88,13 @@
 /*                                   ENUMS                                    */
 /* -------------------------------------------------------------------------- */
 
-// TEXTURE TYPE ENUM
-typedef enum e_texture_type
+// DIRECTION ENUM
+typedef enum e_direction
 {
 	NORTH,
 	SOUTH,
 	WEST,
 	EAST
-}	t_texture_type;
-
-// PLAYER DIRECTION ENUM
-typedef enum e_direction
-{
-	DIR_NORTH,
-	DIR_SOUTH,
-	DIR_WEST,
-	DIR_EAST
 }	t_direction;
 
 /* -------------------------------------------------------------------------- */
@@ -241,6 +232,7 @@ int		handle_color(t_parse_elements *pe, t_game *game);
 bool	is_map_line(const char *line);
 int		parse_map(char **lines, t_game *game);
 int		check_map_lines(char **lines, int start, int end);
+int		check_player_spawn(char **lines, t_game *game, int start, int end);
 int		copy_map_to_game(char **lines, t_game *game, int start, int end);
 
 /* ------------------------------- Rendering ------------------------------- */

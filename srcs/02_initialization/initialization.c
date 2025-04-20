@@ -73,16 +73,14 @@ char	**read_cub_file(int fd, t_game *game)
 	return (lines);
 }
 
-static void	print_cub_tmp(char **cub_tmp)
-{
-	int i = 0;
+// static void	print_cub_tmp(char **cub_tmp)
+// {
+// 	int	i;
 
-	while (cub_tmp && cub_tmp[i])
-	{
-		printf("[%d]: \"%s\"\n", i, cub_tmp[i]);
-		i++;
-	}
-}
+// 	i = -1;
+// 	while (cub_tmp && cub_tmp[++i])
+// 		printf("[%d]: \"%s\"\n", i, cub_tmp[i]);
+// }
 
 int	initialize_game(char *cub_path, t_game *game)
 {
@@ -91,7 +89,7 @@ int	initialize_game(char *cub_path, t_game *game)
 
 	if (ft_strlen(cub_path) < 5
 		|| ft_strncmp(cub_path + ft_strlen(cub_path) - 4, ".cub", 4) != 0)
-		return (ft_error("Error\nInvalid map file extension. Use .cub"));
+		return (ft_error("Error\nInvalid map file extension. Use myfile.cub"));
 	fd = open(cub_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error\nFail to opening map file"));
@@ -100,7 +98,7 @@ int	initialize_game(char *cub_path, t_game *game)
 		return (ft_error("Error\nFail to closing map file"));
 	if (!cub_tmp)
 		return (ft_error("Error\nFail to reading map file"));
-	print_cub_tmp(cub_tmp);
+	// print_cub_tmp(cub_tmp);
 	if (parse_cub_file(cub_tmp, game) == 1)
 		return (1);
 	return (0);

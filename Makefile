@@ -76,7 +76,8 @@ SRCS			= $(SRC)main.c \
 				$(PARSING)parse_elements.c \
 				$(PARSING)parse_elements_utils.c \
 				$(PARSING)parse_map.c \
-				$(PARSING)parse_map_utils.c
+				$(PARSING)parse_map_utils.c \
+				$(PARSING)parse_map_player.c \
 
 # Object files
 OBJS			= $(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))

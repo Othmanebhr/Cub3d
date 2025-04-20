@@ -54,8 +54,6 @@ int	copy_map_to_game(char **lines, t_game *game, int start, int end)
 
 	map_height = end - start + 1;
 	game->map.grid = gc_malloc(sizeof(char *) * (map_height + 1), &game->gc);
-	if (!game->map.grid)
-		return (ft_error("Error\nMalloc failed for map"));
 	i = -1;
 	while (++i < map_height)
 		game->map.grid[i] = ft_strdup_gc(lines[start + i], &game->gc);
@@ -64,9 +62,7 @@ int	copy_map_to_game(char **lines, t_game *game, int start, int end)
 	game->map.width = 0;
 	i = -1;
 	while (++i < map_height)
-	{
 		if ((int)ft_strlen(game->map.grid[i]) > game->map.width)
 			game->map.width = ft_strlen(game->map.grid[i]);
-	}
 	return (0);
 }
