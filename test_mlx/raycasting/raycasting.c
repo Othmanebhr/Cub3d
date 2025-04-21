@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 19:39:09 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:58:03 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,19 +129,21 @@ void	raycasting(t_game *game)
 	t_ray	ray;
 	int		x;
 
-	// Parcourir chaque colonne de l'écran
 	x = 0;
 	while (x < WIDTH)
 	{
-		// Initialiser le rayon pour cette colonne
 		init_ray(&ray, game->player, x);
+		// DEBUG: Affiche les valeurs du rayon pour chaque colonne
+		// if (x % (WIDTH / 10) == 0) // Pour ne pas flooder, affiche 10 rayons
+		// 	printf("Ray %d: map_x=%d map_y=%d dir_x=%.2f dir_y=%.2f\n",
+		// 		x, ray.map_x, ray.map_y, ray.dir_x, ray.dir_y);
 		// Calculer le pas et les distances initiales
 		calculate_step_and_side_dist(&ray, game->player);
-		// Exécuter l'algorithme DDA pour trouver le mur
 		perform_dda(&ray, game->data);
-		// Calculer la distance perpendiculaire
+		// if (ray.hit == 1) {
+		// 	printf("Ray hit at map_x=%d map_y=%d | side=%d\n", ray.map_x, ray.map_y, ray.side);
+		// }
 		calculate_wall_distance(&ray, game->player);
-		// Dessiner le mur pour cette colonne
 		draw_wall(game, &ray, x);
 		x++;
 	}

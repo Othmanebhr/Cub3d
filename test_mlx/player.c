@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:03:12 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/11 14:19:21 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:06:39 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	init_player(t_game *game)
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 		close_window(game, "error: Failed to malloc player's struct");
-	game->player->pos_x = WIDTH / 2; //La position post parsing changera mais pour l'instant je le mets au millieu de la map
-	game->player->pos_y = HEIGHT / 2;
+	game->player->pos_x = 2.5; //La position post parsing changera mais pour l'instant je le mets au millieu de la map
+	game->player->pos_y = 2.5;
 	game->player->dir_x = 1.0; //regarde l'est par default pour l'instant
 	game->player->dir_y = 0.0;
 	game->player->plane_x = 0.0;
-	game->player->plane_y = 0.66;//a revoir mais poour avoir une fov d'environ 66 degres
+	game->player->plane_y = 0.60;//a revoir mais poour avoir une fov d'environ 66 degres
 }
