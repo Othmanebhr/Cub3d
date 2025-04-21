@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/21 13:49:34 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:17:13 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	handle_rotation(t_player *player, t_keys *key)
 	double	save_dir_x;
 	double	save_plane_x;
 
-	if (key->left)
+	if (key->right)
 	{
 		save_dir_x = player->dir_x;
 		player->dir_x = player->dir_x * cos(ROT_SPD) - player->dir_y * sin(ROT_SPD);
@@ -116,14 +116,14 @@ static void	handle_rotation(t_player *player, t_keys *key)
 		player->plane_x = player->plane_x * cos(ROT_SPD) - player->plane_y * sin(ROT_SPD);
 		player->plane_y = save_plane_x * sin(ROT_SPD) + player->plane_y * cos(ROT_SPD);
 	}
-	else if (key->right)
+	else if (key->left)
 	{
 		save_dir_x = player->dir_x;
 		player->dir_x = player->dir_x * cos(-ROT_SPD) - player->dir_y * sin(-ROT_SPD);
 		player->dir_y = save_dir_x * sin(-ROT_SPD) + player->dir_y * cos(-ROT_SPD);
 		save_plane_x = player->plane_x;
-		player->plane_x = player->plane_x * cos(-ROT_SPD) + player->plane_y * sin(-ROT_SPD);
-		player->plane_y = save_dir_x * sin(-ROT_SPD) + player->plane_y * cos(-ROT_SPD);
+		player->plane_x = player->plane_x * cos(-ROT_SPD) - player->plane_y * sin(-ROT_SPD);
+		player->plane_y = save_plane_x * sin(-ROT_SPD) + player->plane_y * cos(-ROT_SPD);
 	}
 }
 
