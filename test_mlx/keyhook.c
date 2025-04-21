@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 19:05:30 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:32:21 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int	handle_keyhook(t_game *game)
 		handle_move(game, game->player, game->keys);
 	if (game->keys->left || game->keys->right)
 		handle_rotation(game->player, game->keys);
-	raycasting(game); //allo?
+	mlx_clear_window(game->mlx, game->win);
+	raycasting(game);
 	return (0);
 }
