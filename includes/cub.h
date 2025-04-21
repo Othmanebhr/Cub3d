@@ -28,6 +28,7 @@
 # include "../my_lib/includes/gc.h"
 # include "../my_lib/includes/get_next_line_bonus.h"
 # include "../my_lib/includes/libft.h"
+# include "../minilibx-linux/mlx.h"
 
 /* -------------------------------------------------------------------------- */
 /*                                  DEFINES                                   */
@@ -131,9 +132,9 @@ typedef struct s_color
 // TEXTURE STRUCTURE
 typedef struct s_texture
 {
-	void	*img;
 	char	*path;
-	int		*addr;
+	void	*img;
+	void	*addr;
 	int		width;
 	int		height;
 	int		bits_per_pixel;
@@ -189,7 +190,7 @@ typedef struct s_player
 typedef struct s_img
 {
 	void	*img;
-	int		*addr;
+	void	*addr;
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
@@ -348,16 +349,6 @@ typedef struct s_ray
 	t_keys		*keys;
 }	t_game; */
 
-
-
-
-/*Img*/
-void	init_img(t_game *game);
-void	free_img(t_game *game);
-
-/*Player*/
-void	init_player(t_game *game);
-void	free_player(t_game *game);
 
 /*Keyhook*/
 int		handle_keyhook(t_game *game);

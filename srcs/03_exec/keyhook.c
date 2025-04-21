@@ -50,21 +50,20 @@ int	handle_keyrelease(int keycode, t_game *game)
 
 static void	move_if_no_collision(t_game *game, t_player *player, double next_x, double next_y)
 {
-	int	map_height;
-	int	map_width;
+	int	map_height = game->map.height;
+	int	map_width = game->map.width;
 
-	map_height = game->data->map_height;
-	map_width = game->data->map_width;
-
-	// Vérifie les limites avant d'accéder à la map
+	// Collision sur X
 	if (next_x >= 0 && next_x < map_width &&
-		player->pos_y >= 0 && player->pos_y < map_height &&
-		game->data->map[(int)player->pos_y][(int)next_x] != '1')
-		player->pos_x = next_x;
+		player->pos.y >= 0 && player->pos.y < map_height &&
+		game->map.grid[(int)player->pos.y][(int)next_x] != '1')
+		player->pos.x = next_x;
+
+	// Collision sur Y
 	if (next_y >= 0 && next_y < map_height &&
-		player->pos_x >= 0 && player->pos_x < map_width &&
-		game->data->map[(int)next_y][(int)player->pos_x] != '1')
-		player->pos_y = next_y;
+		player->pos.x >= 0 && player->pos.x < map_width &&
+		game->map.grid[(int)next_y][(int)player->pos.x] != '1')
+		player->pos.y = next_y;
 }
 
 static void	handle_move(t_game *game, t_player *player, t_keys *key)
@@ -76,26 +75,26 @@ static void	handle_move(t_game *game, t_player *player, t_keys *key)
 	next_y = 0.0;
 	if (key->w)
 	{
-		next_x = player->pos_x + player->dir_x * MOVE_SPD;
-		next_y = player->pos_y + player->dir_y * MOVE_SPD;
+		next_x = player->pos.x + player->dir.x * MOVE_SPEED;
+		next_y = player->pos.y + player->dir.y * MOVE_SPEED;
 		move_if_no_collision(game, player, next_x, next_y);
 	}
 	else if (key->s)
 	{
-		next_x = player->pos_x - player->dir_x * MOVE_SPD;
-		next_y = player->pos_y - player->dir_y * MOVE_SPD;
+		next_x = player->pos.x - player->dir.x * MOVE_SPEED;
+		next_y = player->pos.y - player->dir.y * MOVE_SPEED;
 		move_if_no_collision(game, player, next_x, next_y);
 	}
 	else if (key->a)
 	{
-		next_x = player->pos_x + player->dir_y * MOVE_SPD;
-		next_y = player->pos_y - player->dir_x * MOVE_SPD;
+		next_x = player->pos.x + player->dir.y * MOVE_SPEED;
+		next_y = player->pos.y - player->dir.x * MOVE_SPEED;
 		move_if_no_collision(game, player, next_x, next_y);
 	}
 	else if (key->d)
 	{
-		next_x = player->pos_x - player->dir_y * MOVE_SPD;
-		next_y = player->pos_y + player->dir_x * MOVE_SPD;
+		next_x = player->pos.x - player->dir.y * MOVE_SPEED;
+		next_y = player->pos.y + player->dir.x * MOVE_SPEED;
 		move_if_no_collision(game, player, next_x, next_y);
 	}
 }
@@ -112,30 +111,38 @@ static void	handle_rotation(t_player *player, t_keys *key)
 
 	if (key->right)
 	{
-		save_dir_x = player->dir_x;
-		player->dir_x = player->dir_x * cos(ROT_SPD) - player->dir_y * sin(ROT_SPD);
-		player->dir_y = save_dir_x * sin(ROT_SPD) + player->dir_y * cos(ROT_SPD);
-		save_plane_x = player->plane_x;
-		player->plane_x = player->plane_x * cos(ROT_SPD) - player->plane_y * sin(ROT_SPD);
-		player->plane_y = save_plane_x * sin(ROT_SPD) + player->plane_y * cos(ROT_SPD);
+		save_dir_x = player->dir.x;
+		player->dir.x
+			= player->dir.x * cos(ROT_SPEED) - player->dir.y * sin(ROT_SPEED);
+		player->dir.y
+			= save_dir_x * sin(ROT_SPEED) + player->dir.y * cos(ROT_SPEED);
+		save_plane_x = player->plane.x;
+		player->plane.x
+			= player->plane.x * cos(ROT_SPEED) - player->plane.y * sin(ROT_SPEED);
+		player->plane.y
+			= save_plane_x * sin(ROT_SPEED) + player->plane.y * cos(ROT_SPEED);
 	}
 	else if (key->left)
 	{
-		save_dir_x = player->dir_x;
-		player->dir_x = player->dir_x * cos(-ROT_SPD) - player->dir_y * sin(-ROT_SPD);
-		player->dir_y = save_dir_x * sin(-ROT_SPD) + player->dir_y * cos(-ROT_SPD);
-		save_plane_x = player->plane_x;
-		player->plane_x = player->plane_x * cos(-ROT_SPD) - player->plane_y * sin(-ROT_SPD);
-		player->plane_y = save_plane_x * sin(-ROT_SPD) + player->plane_y * cos(-ROT_SPD);
+		save_dir_x = player->dir.x;
+		player->dir.x
+			= player->dir.x * cos(-ROT_SPEED) - player->dir.y * sin(-ROT_SPEED);
+		player->dir.y
+			= save_dir_x * sin(-ROT_SPEED) + player->dir.y * cos(-ROT_SPEED);
+		save_plane_x = player->plane.x;
+		player->plane.x
+			= player->plane.x * cos(-ROT_SPEED) - player->plane.y * sin(-ROT_SPEED);
+		player->plane.y
+			= save_plane_x * sin(-ROT_SPEED) + player->plane.y * cos(-ROT_SPEED);
 	}
 }
 
 int	handle_keyhook(t_game *game)
 {
-	if (game->keys->a || game->keys->d || game->keys->s || game->keys->w)
-		handle_move(game, game->player, game->keys);
-	if (game->keys->left || game->keys->right)
-		handle_rotation(game->player, game->keys);
+	if (game->keys.a || game->keys.d || game->keys.s || game->keys.w)
+		handle_move(game, &game->player, &game->keys);
+	if (game->keys.left || game->keys.right)
+		handle_rotation(&game->player, &game->keys);
 	mlx_clear_window(game->mlx, game->win);
 	raycasting(game);
 	return (0);

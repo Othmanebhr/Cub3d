@@ -80,7 +80,6 @@ SRCS			= $(SRC)main.c \
 				$(PARSING)04_parse_map_player.c \
 				$(PARSING)parse_elements_utils.c \
 				$(PARSING)parse_map_utils.c \
-				$(EXEC)img.c \
 				$(EXEC)keyhook.c \
 				$(EXEC)raycasting.c \
 
