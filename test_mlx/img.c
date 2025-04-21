@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:36:30 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 18:44:55 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:07:52 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,8 @@ void	init_img(t_game *game) //ajout de protection pour les adresses
 	if (!game->imgs->EA_img)
 		close_window(game, "error: Failed to load EA texture");
 	game->imgs->EA_addr = mlx_get_data_addr(game->imgs->EA_img, &game->imgs->bpp, &game->imgs->line_len, &game->imgs->endian);
+	game->imgs->frame_img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->imgs->frame_img)
+		close_window(game, "error: Failed to create frame buffer");
+	game->imgs->frame_addr = mlx_get_data_addr(game->imgs->frame_img, &game->imgs->frame_bpp, &game->imgs->frame_line_len, &game->imgs->frame_endian);
 }

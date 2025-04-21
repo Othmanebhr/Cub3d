@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/21 13:58:03 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:20:20 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	draw_wall(t_game *game, t_ray *ray, int x) //////////////// A normer
 		int d = y * 256 - HEIGHT * 128 + line_height * 128;
 		int tex_y = ((d * tex_height) / line_height) / 256;
 		int color = *(int *)(tex_addr + (tex_y * game->imgs->line_len + tex_x * (game->imgs->bpp / 8)));
-		mlx_pixel_put(game->mlx, game->win, x, y, color);
+		*(int *)(game->imgs->frame_addr + (y * game->imgs->frame_line_len + x * (game->imgs->frame_bpp / 8))) = color;
 	}
 }
 
@@ -128,23 +128,30 @@ void	raycasting(t_game *game)
 {
 	t_ray	ray;
 	int		x;
-
+	int		y;
+	int		color;
+	
+	y = 0;
+	color = 0;
+	for (y = 0; y < HEIGHT; y++)
+	{
+		if (y < HEIGHT / 2)
+			color = 0x87CEEB; // Couleur du ciel (bleu clair)
+		else
+			color = 0x444444; // Couleur du sol (gris foncé)
+		for (int x_fill = 0; x_fill < WIDTH; x_fill++) {
+			*(int *)(game->imgs->frame_addr + (y * game->imgs->frame_line_len + x_fill * (game->imgs->frame_bpp / 8))) = color;
+		}
+	}
 	x = 0;
 	while (x < WIDTH)
 	{
 		init_ray(&ray, game->player, x);
-		// DEBUG: Affiche les valeurs du rayon pour chaque colonne
-		// if (x % (WIDTH / 10) == 0) // Pour ne pas flooder, affiche 10 rayons
-		// 	printf("Ray %d: map_x=%d map_y=%d dir_x=%.2f dir_y=%.2f\n",
-		// 		x, ray.map_x, ray.map_y, ray.dir_x, ray.dir_y);
-		// Calculer le pas et les distances initiales
 		calculate_step_and_side_dist(&ray, game->player);
 		perform_dda(&ray, game->data);
-		// if (ray.hit == 1) {
-		// 	printf("Ray hit at map_x=%d map_y=%d | side=%d\n", ray.map_x, ray.map_y, ray.side);
-		// }
 		calculate_wall_distance(&ray, game->player);
 		draw_wall(game, &ray, x);
 		x++;
 	}
+	mlx_put_image_to_window(game->mlx, game->win, game->imgs->frame_img, 0, 0);
 }

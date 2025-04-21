@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/15 18:22:12 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:14:36 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,19 @@ typedef struct s_img
 	void		*SO_img;
 	void		*WE_img;
 	void		*EA_img;
-	char		*NO_addr;//a init (?)
+	char		*NO_addr;
 	char		*SO_addr;
 	char		*WE_addr;
 	char		*EA_addr;
 	int			line_len;
 	int			bpp;//a voir
 	int			endian;//a voir
+
+	void	*frame_img;
+	char	*frame_addr;
+	int		frame_bpp;
+	int		frame_line_len;
+	int		frame_endian;
 }	t_img;
 
 typedef struct s_player
