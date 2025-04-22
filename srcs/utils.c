@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:32:07 by besch             #+#    #+#             */
-/*   Updated: 2025/04/21 21:08:07 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 11:00:16 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	free_img(t_game *game)
 
 int	free_game(t_game *game)
 {
+	printf("test2");
 	if (game->mlx)
 	{
 		if (game->win)

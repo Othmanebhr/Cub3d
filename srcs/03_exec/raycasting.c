@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/21 19:12:36 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 11:10:58 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,43 +54,51 @@ static void	calculate_wall_distance(t_ray *ray, t_player *player)
 	}
 }
 
-static void	draw_wall(t_game *game, t_ray *ray, int x) //////////////// A normer
+static void	draw_wall(t_game *game, t_ray *ray, int x)
 {
-	int line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
-	int draw_start = -line_height / 2 + WINDOW_HEIGHT / 2;
-	if (draw_start < 0) draw_start = 0;
-	int draw_end = line_height / 2 + WINDOW_HEIGHT / 2;
-	if (draw_end >= WINDOW_HEIGHT) draw_end = WINDOW_HEIGHT - 1;
-	// 1. Choisir la texture selon la face touchée
-	char *tex_addr;
-	int tex_width = 64; // largeur de la texture (à adapter)
-	int tex_height = 64; // hauteur de la texture (à adapter)
-	if (ray->side == 0 && ray->dir_x > 0)
-		tex_addr = game->textures[EAST].addr;
-	else if (ray->side == 0 && ray->dir_x < 0)
-		tex_addr = game->textures[WEST].addr;
-	else if (ray->side == 1 && ray->dir_y > 0)
-		tex_addr = game->textures[SOUTH].addr;
-	else
-		tex_addr = game->textures[NORTH].addr;
-	// 2. Calculer la coordonnée X sur la texture
-	double wall_x;
-	if (ray->side == 0)
-		wall_x = game->player.pos.y + ray->perp_wall_dist * ray->dir_y;
-	else
-		wall_x = game->player.pos.x + ray->perp_wall_dist * ray->dir_x;
-	wall_x -= floor(wall_x);
-	int tex_x = (int)(wall_x * (double)tex_width);
-	if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1 && ray->dir_y > 0))
-		tex_x = tex_width - tex_x - 1;
-	// 3. Boucle pour chaque pixel vertical du mur
-	for (int y = draw_start; y < draw_end; y++)
-	{
-		int d = y * 256 - WINDOW_HEIGHT * 128 + line_height * 128;
-		int tex_y = ((d * tex_height) / line_height) / 256;
-		int color = *(int *)(tex_addr + (tex_y * game->img.line_len + tex_x * (game->img.bits_per_pixel / 8)));
-		*(int *)(game->img.addr + (y * game->img.line_len + x * (game->img.bits_per_pixel / 8))) = color;
-	}
+    // 1. Choisir la texture selon la face touchée
+    t_texture *tex;
+    if (ray->side == 0 && ray->dir_x > 0)
+        tex = &game->textures[EAST];
+    else if (ray->side == 0 && ray->dir_x < 0)
+        tex = &game->textures[WEST];
+    else if (ray->side == 1 && ray->dir_y > 0)
+        tex = &game->textures[SOUTH];
+    else
+        tex = &game->textures[NORTH];
+
+    char *tex_addr = tex->addr;
+    int tex_width = tex->width;
+    int tex_height = tex->height;
+    int texture_line_len = tex->line_len;
+    int texture_bpp = tex->bits_per_pixel;
+
+    // 2. Calculer la hauteur de la ligne à dessiner
+    int line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
+    int draw_start = -line_height / 2 + WINDOW_HEIGHT / 2;
+    if (draw_start < 0) draw_start = 0;
+    int draw_end = line_height / 2 + WINDOW_HEIGHT / 2;
+    if (draw_end >= WINDOW_HEIGHT) draw_end = WINDOW_HEIGHT - 1;
+
+    // 3. Calculer la coordonnée X sur la texture
+    double wall_x;
+    if (ray->side == 0)
+        wall_x = game->player.pos.y + ray->perp_wall_dist * ray->dir_y;
+    else
+        wall_x = game->player.pos.x + ray->perp_wall_dist * ray->dir_x;
+    wall_x -= floor(wall_x);
+    int tex_x = (int)(wall_x * (double)tex_width);
+    if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1 && ray->dir_y > 0))
+        tex_x = tex_width - tex_x - 1;
+
+    // 4. Boucle pour chaque pixel vertical du mur
+    for (int y = draw_start; y < draw_end; y++)
+    {
+        int d = y * 256 - WINDOW_HEIGHT * 128 + line_height * 128;
+        int tex_y = ((d * tex_height) / line_height) / 256;
+        int color = *(int *)(tex_addr + (tex_y * texture_line_len + tex_x * (texture_bpp / 8)));
+        *(int *)(game->img.addr + (y * game->img.line_len + x * (game->img.bits_per_pixel / 8))) = color;
+    }
 }
 
 static void	perform_dda(t_ray *ray, t_map *map)
