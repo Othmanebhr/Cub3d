@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:32:07 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 11:19:16 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:56:51 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ static void	free_img(t_game *game)
 		if (game->textures[EAST].img)
 			mlx_destroy_image(game->mlx, game->textures[EAST].img);
 	}
+}
+
+int	close_window(t_game *game)
+{
+	free_game(game);
+	printf("Thanks for playing!\n");
+	exit(EXIT_SUCCESS);
 }
 
 int	free_game(t_game *game)

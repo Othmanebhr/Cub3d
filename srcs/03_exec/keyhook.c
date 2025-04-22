@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/21 20:37:00 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 18:58:12 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,56 @@
 
 int	handle_keypress(int keycode, t_game *game)
 {
-	if (keycode == 65307)
-	{
-		printf("Thanks for playing!\n");
-		free_game(game);
-		exit(EXIT_SUCCESS);
-	}
-	else if (keycode == 119)
+	if (keycode == KEY_ESC)
+		close_window(game);
+	else if (keycode == KEY_W)
 		game->keys.w = 1;
-	else if (keycode == 115)
-		game->keys.s = 1;
-	else if (keycode == 97)
+	else if (keycode == KEY_A)
 		game->keys.a = 1;
-	else if (keycode == 100)
+	else if (keycode == KEY_S)
+		game->keys.s = 1;
+	else if (keycode == KEY_D)
 		game->keys.d = 1;
-	else if (keycode == 65361)
+	else if (keycode == KEY_LEFT)
 		game->keys.left = 1;
-	else if (keycode == 65363)
+	else if (keycode == KEY_RIGHT)
 		game->keys.right = 1;
 	return (0);
 }
 
 int	handle_keyrelease(int keycode, t_game *game)
 {
-	if (keycode == 119)
+	if (keycode == KEY_W)
 		game->keys.w = 0;
-	else if (keycode == 115)
-		game->keys.s = 0;
-	else if (keycode == 97)
+	else if (keycode == KEY_A)
 		game->keys.a = 0;
-	else if (keycode == 100)
+	else if (keycode == KEY_S)
+		game->keys.s = 0;
+	else if (keycode == KEY_D)
 		game->keys.d = 0;
-	else if (keycode == 65361)
+	else if (keycode == KEY_LEFT)
 		game->keys.left = 0;
-	else if (keycode == 65363)
+	else if (keycode == KEY_RIGHT)
 		game->keys.right = 0;
 	return (0);
 }
 
 static void	move_if_no_collision(t_game *game, t_player *player, double next_x, double next_y)
 {
-	int	map_height = game->map.height;
-	int	map_width = game->map.width;
+	int	map_height;
+	int	map_width;
 
-	// Collision sur X
-	if (next_x >= 0 && next_x < map_width &&
-		player->pos.y >= 0 && player->pos.y < map_height &&
-		game->map.grid[(int)player->pos.y][(int)next_x] != '1')
+	map_height = game->map.height;
+	map_width = game->map.width;
+
+	// Collision sur X (on garde Y fixe)
+	if (next_x >= COLLISION_PADDING && next_x < map_width - COLLISION_PADDING
+		&& game->map.grid[(int)(player->pos.y)][(int)(next_x)] != '1')
 		player->pos.x = next_x;
 
-	// Collision sur Y
-	if (next_y >= 0 && next_y < map_height &&
-		player->pos.x >= 0 && player->pos.x < map_width &&
-		game->map.grid[(int)next_y][(int)player->pos.x] != '1')
+	// Collision sur Y (on garde X fixe)
+	if (next_y >= COLLISION_PADDING && next_y < map_height - COLLISION_PADDING
+		&& game->map.grid[(int)(next_y)][(int)(player->pos.x)] != '1')
 		player->pos.y = next_y;
 }
 

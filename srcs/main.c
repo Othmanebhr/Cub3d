@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 19:36:32 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 18:07:57 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 18:56:41 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	main(int ac, char **av)
 	mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
 	mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);
 	mlx_loop_hook(game.mlx, handle_keyhook, &game);
-	mlx_hook(game.win, 17, 0, free_game, &game);
+	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop(game.mlx);
-	free_game(&game);
 	return (0);
 }

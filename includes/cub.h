@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/21 20:49:41 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 18:57:07 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 // GAMEPLAY SETTINGS
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
+# define COLLISION_PADDING 0.1
 
 // MAP SETTINGS
 # define MAX_MAP_WIDTH 100
@@ -274,6 +275,7 @@ int		copy_map_to_game(char **lines, t_game *game, int start, int end);
 /* ------------------------------- Utilities ------------------------------- */
 int		ft_error(char *str);
 int		free_game(t_game *game);
+int		close_window(t_game *game);
 
 /* ------------------------------------------------------------------------- */
 /*                                    OTH                                    */
