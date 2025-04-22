@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   03_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:33 by besch             #+#    #+#             */
-/*   Updated: 2025/04/21 19:31:56 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 11:24:31 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ int	parse_map(char **lines, t_game *game)
 		return (1);
 	if (is_map_closed(game->map.grid, game->map.height) != 0)
 		return (1);
+	for (int i = 0; game->map.grid[i]; i++)
+		printf("%s\n", game->map.grid[i]);
 	return (0);
 }

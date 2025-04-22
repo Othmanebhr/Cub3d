@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 19:36:32 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 11:00:27 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:19:20 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int ac, char **av)
 	mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);
 	mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);
 	mlx_loop_hook(game.mlx, handle_keyhook, &game);
-	printf("test\n");
 	mlx_hook(game.win, 17, 0, free_game, &game);
 	mlx_loop(game.mlx);
 	free_game(&game);
