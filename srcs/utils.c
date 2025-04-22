@@ -48,20 +48,3 @@ int	free_game(t_game *game)
 	gc_cleanup(&game->gc);
 	return (0);
 }
-
-int	close_window(t_game *game, char *str)
-{
-	printf("%s\n",str);
-	if (!game)
-		exit(EXIT_FAILURE);
-	free_img(game);
-	if (game->win && game->mlx)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
-	gc_cleanup(&game->gc);
-	exit(0);
-}

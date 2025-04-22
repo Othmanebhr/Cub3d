@@ -15,7 +15,11 @@
 int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == 65307)
-		close_window(game, "Thanks for playing!");
+	{
+		printf("Thanks for playing!\n");
+		free_game(game);
+		exit(EXIT_SUCCESS);
+	}
 	else if (keycode == 119)
 		game->keys.w = 1;
 	else if (keycode == 115)

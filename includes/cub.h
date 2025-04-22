@@ -355,9 +355,6 @@ int		handle_keyhook(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
 
-/*Utils*/
-int		close_window(t_game *game, char *str);
-
 //raycasting
 void	raycasting(t_game	*game);
 
