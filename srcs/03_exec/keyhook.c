@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/22 20:13:11 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 20:28:39 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	handle_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
-static void	move_if_no_collision(t_game *game, t_player *player, double next_x, double next_y)
+void	move_if_no_collision(t_game *game, \
+	t_player *player, double next_x, double next_y)
 {
 	int	map_height;
 	int	map_width;
@@ -67,47 +68,14 @@ static void	move_if_no_collision(t_game *game, t_player *player, double next_x, 
 		y_dir = 1;
 	else if (next_y < player->pos.y)
 		y_dir = -1;
-	// Vérifie la collision sur X (en gardant une marge de sécurité)
 	if (next_x >= COLLISION_PADDING && next_x < map_width - COLLISION_PADDING
-		&& game->map.grid[(int)player->pos.y][(int)(next_x + COLLISION_PADDING * x_dir)] != '1')
+		&& game->map.grid \
+		[(int)player->pos.y][(int)(next_x + COLLISION_PADDING * x_dir)] != '1')
 		player->pos.x = next_x;
-	// Vérifie la collision sur Y (en gardant une marge de sécurité)
 	if (next_y >= COLLISION_PADDING && next_y < map_height - COLLISION_PADDING
-		&& game->map.grid[(int)(next_y + COLLISION_PADDING * y_dir)][(int)player->pos.x] != '1')
+		&& game->map.grid \
+		[(int)(next_y + COLLISION_PADDING * y_dir)][(int)player->pos.x] != '1')
 		player->pos.y = next_y;
-}
-
-static void	handle_move(t_game *game, t_player *player, t_keys *key)
-{
-	double	next_x;
-	double	next_y;
-
-	next_x = 0.0;
-	next_y = 0.0;
-	if (key->w)
-	{
-		next_x = player->pos.x + player->dir.x * MOVE_SPEED;
-		next_y = player->pos.y + player->dir.y * MOVE_SPEED;
-		move_if_no_collision(game, player, next_x, next_y);
-	}
-	else if (key->s)
-	{
-		next_x = player->pos.x - player->dir.x * MOVE_SPEED;
-		next_y = player->pos.y - player->dir.y * MOVE_SPEED;
-		move_if_no_collision(game, player, next_x, next_y);
-	}
-	else if (key->a)
-	{
-		next_x = player->pos.x + player->dir.y * MOVE_SPEED;
-		next_y = player->pos.y - player->dir.x * MOVE_SPEED;
-		move_if_no_collision(game, player, next_x, next_y);
-	}
-	else if (key->d)
-	{
-		next_x = player->pos.x - player->dir.y * MOVE_SPEED;
-		next_y = player->pos.y + player->dir.x * MOVE_SPEED;
-		move_if_no_collision(game, player, next_x, next_y);
-	}
 }
 
 /*
@@ -115,38 +83,6 @@ formule ; (x, y) vecteur avant rotation et (x', y') post rotation, (θ) pour l'a
 x' = x * cos(θ) - y * sin(θ)
 y' = y * sin(θ) + y * cos(θ)
 */
-static void	handle_rotation(t_player *player, t_keys *key)
-{
-	double	save_dir_x;
-	double	save_plane_x;
-
-	if (key->right)
-	{
-		save_dir_x = player->dir.x;
-		player->dir.x
-			= player->dir.x * cos(ROT_SPEED) - player->dir.y * sin(ROT_SPEED);
-		player->dir.y
-			= save_dir_x * sin(ROT_SPEED) + player->dir.y * cos(ROT_SPEED);
-		save_plane_x = player->plane.x;
-		player->plane.x
-			= player->plane.x * cos(ROT_SPEED) - player->plane.y * sin(ROT_SPEED);
-		player->plane.y
-			= save_plane_x * sin(ROT_SPEED) + player->plane.y * cos(ROT_SPEED);
-	}
-	else if (key->left)
-	{
-		save_dir_x = player->dir.x;
-		player->dir.x
-			= player->dir.x * cos(-ROT_SPEED) - player->dir.y * sin(-ROT_SPEED);
-		player->dir.y
-			= save_dir_x * sin(-ROT_SPEED) + player->dir.y * cos(-ROT_SPEED);
-		save_plane_x = player->plane.x;
-		player->plane.x
-			= player->plane.x * cos(-ROT_SPEED) - player->plane.y * sin(-ROT_SPEED);
-		player->plane.y
-			= save_plane_x * sin(-ROT_SPEED) + player->plane.y * cos(-ROT_SPEED);
-	}
-}
 
 int	handle_keyhook(t_game *game)
 {

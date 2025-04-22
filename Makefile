@@ -81,6 +81,8 @@ SRCS			= $(SRC)main.c \
 				$(PARSING)parse_elements_utils.c \
 				$(PARSING)parse_map_utils.c \
 				$(EXEC)keyhook.c \
+				$(EXEC)move.c \
+				$(EXEC)rotation.c \
 				$(EXEC)raycasting.c \
 
 # Object files

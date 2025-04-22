@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 20:08:18 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 20:29:02 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,9 +229,6 @@ typedef struct s_game
 
 /* ----------------------------- Initialization ---------------------------- */
 int		initialize_game(char *cub_path, t_game *game);
-// int		load_textures(t_game *game);
-// void	init_player(t_game *game);
-// int		setup_mlx(t_game *game);
 
 /* -------------------------------- Parsing -------------------------------- */
 char	**read_cub_file(int fd, t_game *game);
@@ -354,6 +351,10 @@ typedef struct s_ray
 
 /*Keyhook*/
 int		handle_keyhook(t_game *game);
+void	handle_move(t_game *game, t_player *player, t_keys *key);
+void	move_if_no_collision(t_game *game, \
+	t_player *player, double next_x, double next_y);
+void	handle_rotation(t_player *player, t_keys *key);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
 
