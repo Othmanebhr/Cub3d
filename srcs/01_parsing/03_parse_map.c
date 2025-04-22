@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:33 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 11:24:31 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:00:20 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	parse_map(char **lines, t_game *game)
 
 	if (find_map_limits(lines, &start, &end) != 0)
 		return (1);
+	printf("start: %d, end: %d\n", start, end);
 	if (check_map_lines(lines, start, end) != 0)
 		return (1);
 	if (check_player_spawn(lines, game, start, end) != 0)
@@ -112,6 +113,14 @@ int	parse_map(char **lines, t_game *game)
 	if (is_map_closed(game->map.grid, game->map.height) != 0)
 		return (1);
 	for (int i = 0; game->map.grid[i]; i++)
-		printf("%s\n", game->map.grid[i]);
+	{
+		if (i < 10)
+			printf("[0%d]%s\n", i, game->map.grid[i]);
+		else
+			printf("[%d]%s\n", i, game->map.grid[i]);
+	}
+	printf("Map height: %d\n", game->map.height);
+	printf("Map width: %d\n", game->map.width);
+	printf("Player position: (%f, %f)\n", game->player.pos.x, game->player.pos.y);
 	return (0);
 }

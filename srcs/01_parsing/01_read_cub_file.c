@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cub_file.c                                    :+:      :+:    :+:   */
+/*   01_read_cub_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:30 by besch             #+#    #+#             */
-/*   Updated: 2025/04/21 19:33:14 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 15:00:54 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ static void	ft_strip_newline(char *line)
 
 // 	i = -1;
 // 	while (cub_tmp && cub_tmp[++i])
-// 		printf("[%d]: \"%s\"\n", i, cub_tmp[i]);
+// 	{
+// 		if (i < 10)
+// 			printf("[0%d]: \"%s\"\n", i, cub_tmp[i]);
+// 		else
+// 			printf("[%d]: \"%s\"\n", i, cub_tmp[i]);
+// 	}
 // }
 
 char	**read_cub_file(int fd, t_game *game)

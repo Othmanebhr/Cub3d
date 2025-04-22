@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:51 by besch             #+#    #+#             */
-/*   Updated: 2025/04/21 19:36:19 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 17:05:50 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	find_player_pos(char **lines, int start, int end, t_vec2 *pos)
 			if (is_spawn_char(lines[i][j]))
 			{
 				count++;
-				pos->x = i;
-				pos->y = j;
+				pos->x = j;
+				pos->y = i;
 			}
 		}
 	}
@@ -51,18 +51,18 @@ static int	is_spawn_inside(char **lines, int start, int end, t_vec2 pos)
 	int	px;
 	int	py;
 
-	px = (int)pos.x;
-	py = (int)pos.y;
-	len = ft_strlen(lines[px]);
-	if (px == start || px == end
-		|| pos.y == 0 || pos.y == len - 1)
+	px = (int)pos.x; // colonne
+	py = (int)pos.y; // ligne
+	len = ft_strlen(lines[py]);
+	if (py == start || py == end
+		|| px == 0 || px == len - 1)
 		return (ft_error("Error\nPlayer spawn on map border"));
-	if (lines[px - 1][py] == ' '
-		|| lines[px + 1][py] == ' '
-		|| lines[px][py - 1] == ' '
-		|| lines[px][py + 1] == ' '
-		|| lines[px - 1][py] == '\0'
-		|| lines[px + 1][py] == '\0')
+	if (lines[py - 1][px] == ' '
+		|| lines[py + 1][px] == ' '
+		|| lines[py][px - 1] == ' '
+		|| lines[py][px + 1] == ' '
+		|| lines[py - 1][px] == '\0'
+		|| lines[py + 1][px] == '\0')
 		return (ft_error("Error\nPlayer spawn not inside the map"));
 	return (0);
 }
@@ -82,16 +82,16 @@ int	check_player_spawn(char **lines, t_game *game, int start, int end)
 
 	// Place le joueur au centre de la case (pour le rendu/raycasting)
 	game->player.pos.x = player_pos.x + 0.5;
-	game->player.pos.y = player_pos.y + 0.5;
+	game->player.pos.y = player_pos.y - start + 0.5;
 
 	// Définit la direction initiale selon la lettre trouvée dans la map
-	if (lines[(int)player_pos.x][(int)player_pos.y] == 'N')
+	if (lines[(int)player_pos.y][(int)player_pos.x] == 'N')
 		game->player.dir = (t_vec2){0, -1}; // Nord : vers le haut (y négatif)
-	else if (lines[(int)player_pos.x][(int)player_pos.y] == 'S')
+	else if (lines[(int)player_pos.y][(int)player_pos.x] == 'S')
 		game->player.dir = (t_vec2){0, 1};  // Sud : vers le bas (y positif)
-	else if (lines[(int)player_pos.x][(int)player_pos.y] == 'E')
+	else if (lines[(int)player_pos.y][(int)player_pos.x] == 'E')
 		game->player.dir = (t_vec2){1, 0};  // Est : vers la droite (x positif)
-	else if (lines[(int)player_pos.x][(int)player_pos.y] == 'W')
+	else if (lines[(int)player_pos.y][(int)player_pos.x] == 'W')
 		game->player.dir = (t_vec2){-1, 0}; // Ouest : vers la gauche (x négatif)
 
 	// Définit le plan caméra (perpendiculaire à la direction, FOV ~66°)
@@ -99,10 +99,10 @@ int	check_player_spawn(char **lines, t_game *game, int start, int end)
 	game->player.plane.y = game->player.dir.x * 0.66;
 
 	// Sauvegarde la direction de départ (utile pour reset ou affichage)
-	game->player.start_dir = lines[(int)player_pos.x][(int)player_pos.y];
+	game->player.start_dir = lines[(int)player_pos.y][(int)player_pos.x];
 
 	// Remplace la case de spawn par '0' (case vide) dans la map
-	lines[(int)player_pos.x][(int)player_pos.y] = '0';
+	// lines[(int)player_pos.x][(int)player_pos.y] = '0';
 
 	return (0);
 }
