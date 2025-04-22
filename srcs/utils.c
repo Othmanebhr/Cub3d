@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:32:07 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 18:56:51 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 19:08:48 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	free_img(t_game *game)
 		if (game->textures[EAST].img)
 			mlx_destroy_image(game->mlx, game->textures[EAST].img);
 	}
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
 }
 
 int	close_window(t_game *game)
