@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/22 18:58:12 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 20:13:11 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,28 @@ static void	move_if_no_collision(t_game *game, t_player *player, double next_x, 
 {
 	int	map_height;
 	int	map_width;
+	int	x_dir;
+	int	y_dir;
 
 	map_height = game->map.height;
 	map_width = game->map.width;
-
-	// Collision sur X (on garde Y fixe)
+	x_dir = 0;
+	if (next_x > player->pos.x)
+		x_dir = 1;
+	else if (next_x < player->pos.x)
+		x_dir = -1;
+	y_dir = 0;
+	if (next_y > player->pos.y)
+		y_dir = 1;
+	else if (next_y < player->pos.y)
+		y_dir = -1;
+	// Vérifie la collision sur X (en gardant une marge de sécurité)
 	if (next_x >= COLLISION_PADDING && next_x < map_width - COLLISION_PADDING
-		&& game->map.grid[(int)(player->pos.y)][(int)(next_x)] != '1')
+		&& game->map.grid[(int)player->pos.y][(int)(next_x + COLLISION_PADDING * x_dir)] != '1')
 		player->pos.x = next_x;
-
-	// Collision sur Y (on garde X fixe)
+	// Vérifie la collision sur Y (en gardant une marge de sécurité)
 	if (next_y >= COLLISION_PADDING && next_y < map_height - COLLISION_PADDING
-		&& game->map.grid[(int)(next_y)][(int)(player->pos.x)] != '1')
+		&& game->map.grid[(int)(next_y + COLLISION_PADDING * y_dir)][(int)player->pos.x] != '1')
 		player->pos.y = next_y;
 }
 

@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 18:57:07 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/22 20:08:18 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 // GAMEPLAY SETTINGS
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
-# define COLLISION_PADDING 0.1
+# define COLLISION_PADDING 0.2
 
 // MAP SETTINGS
 # define MAX_MAP_WIDTH 100
