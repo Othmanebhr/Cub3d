@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:33:35 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/21 16:14:36 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:59:27 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 #define MOVE_SPD 0.1 //ici speed et distqnce veulent dire casiement la meme chose
 #define ROT_SPD 0.05 // Vitesse/distance en radiant
+
+#define COLLISION_PADDING 0.1
 
 typedef struct s_keys
 {

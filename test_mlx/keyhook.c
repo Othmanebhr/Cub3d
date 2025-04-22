@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/21 14:22:29 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:01:45 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static void	move_if_no_collision(t_game *game, t_player *player, double next_x, 
 	int map_height = game->data->map_height;
 	int map_width = game->data->map_width;
 
-	// Vérifie les limites avant d'accéder à la map
-	if (next_x >= 0 && next_x < map_width &&
-		player->pos_y >= 0 && player->pos_y < map_height &&
-		game->data->map[(int)player->pos_y][(int)next_x] != '1')
+	// Vérifie la collision sur X (en gardant une marge de sécurité)
+	if (next_x >= COLLISION_PADDING && next_x < map_width - COLLISION_PADDING &&
+		game->data->map[(int)player->pos_y][(int)(next_x + COLLISION_PADDING * ((next_x - player->pos_x) > 0 ? 1 : -1))] != '1')
 		player->pos_x = next_x;
-	if (next_y >= 0 && next_y < map_height &&
-		player->pos_x >= 0 && player->pos_x < map_width &&
-		game->data->map[(int)next_y][(int)player->pos_x] != '1')
+
+	// Vérifie la collision sur Y (en gardant une marge de sécurité)
+	if (next_y >= COLLISION_PADDING && next_y < map_height - COLLISION_PADDING &&
+		game->data->map[(int)(next_y + COLLISION_PADDING * ((next_y - player->pos_y) > 0 ? 1 : -1))][(int)player->pos_x] != '1')
 		player->pos_y = next_y;
 }
 
