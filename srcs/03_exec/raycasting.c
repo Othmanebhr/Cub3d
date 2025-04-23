@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/22 20:16:39 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/23 11:03:32 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,15 +150,23 @@ void	raycasting(t_game *game)
 	int		x;
 	int		y;
 	int		color;
+	int		floor_color;
+	int		ceiling_color;
 
 	y = 0;
 	color = 0;
+	floor_color = (game->map.floor_color.r << 16) |
+					(game->map.floor_color.g << 8) |
+					(game->map.floor_color.b);
+	ceiling_color = (game->map.ceiling_color.r << 16) |
+					(game->map.ceiling_color.g << 8) |
+					(game->map.ceiling_color.b);
 	for (y = 0; y < WINDOW_HEIGHT; y++)
 	{
 		if (y < WINDOW_HEIGHT / 2)
-			color = 0x87CEEB; // Couleur du ciel (bleu clair)
+			color = ceiling_color;
 		else
-			color = 0x444444; // Couleur du sol (gris foncé)
+			color = floor_color;
 		for (int x_fill = 0; x_fill < WINDOW_WIDTH; x_fill++) {
 			*(int *)(game->img.addr + (y * game->img.line_len + x_fill * (game->img.bits_per_pixel / 8))) = color;
 		}
