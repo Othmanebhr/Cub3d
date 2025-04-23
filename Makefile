@@ -84,6 +84,7 @@ SRCS			= $(SRC)main.c \
 				$(EXEC)keyhook.c \
 				$(EXEC)move.c \
 				$(EXEC)rotation.c \
+				$(EXEC)move_mouse.c \
 				$(RAY)raycasting.c \
 				$(RAY)handle_color.c \
 				$(RAY)init_ray.c \

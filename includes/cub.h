@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/23 17:50:08 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:12:48 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ typedef struct s_keys
 // GAME STRUCTURE
 typedef struct s_game
 {
+	int			mouse_last_x;
 	void		*mlx;
 	void		*win;
 	t_img		img;
@@ -253,6 +254,7 @@ t_player *player, double next_x, double next_y);
 void		handle_rotation(t_player *player, t_keys *key);
 int			handle_keypress(int keycode, t_game *game);
 int			handle_keyrelease(int keycode, t_game *game);
+int			handle_mouse_move(int x, int y, void *param);
 
 //raycasting
 void	raycasting(t_game	*game);
