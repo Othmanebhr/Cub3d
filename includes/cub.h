@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 20:29:02 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/23 11:40:13 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,16 +350,19 @@ typedef struct s_ray
 
 
 /*Keyhook*/
-int		handle_keyhook(t_game *game);
-void	handle_move(t_game *game, t_player *player, t_keys *key);
-void	move_if_no_collision(t_game *game, \
-	t_player *player, double next_x, double next_y);
-void	handle_rotation(t_player *player, t_keys *key);
-int		handle_keypress(int keycode, t_game *game);
-int		handle_keyrelease(int keycode, t_game *game);
+int			handle_keyhook(t_game *game);
+void		handle_move(t_game *game, t_player *player, t_keys *key);
+void		move_if_no_collision(t_game *game, \
+t_player *player, double next_x, double next_y);
+void		handle_rotation(t_player *player, t_keys *key);
+int			handle_keypress(int keycode, t_game *game);
+int			handle_keyrelease(int keycode, t_game *game);
 
 //raycasting
 void	raycasting(t_game	*game);
+void	color_handle(t_game *game);
+void	init_ray(t_ray *ray, t_player *player, int x);
+void	perform_dda(t_ray *ray, t_map *map);
 
 //init struct
 void	init_ray(t_ray *ray, t_player *player, int x);

@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 11:03:32 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:39:29 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,83 +95,13 @@ static void	draw_wall(t_game *game, t_ray *ray, int x)
 	}
 }
 
-static void	perform_dda(t_ray *ray, t_map *map)
-{
-	// Algorithme DDA pour trouver le point d'intersection avec un mur
-	while (ray->hit == 0)
-	{
-		// Sauter au prochain carré de la carte
-		if (ray->side_dist_x < ray->side_dist_y)
-		{
-			// Avancer dans la direction X
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0; // Touché un côté vertical (Est/Ouest)
-		}
-		else
-		{
-			// Avancer dans la direction Y
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1; // Touché un côté horizontal (Nord/Sud)
-		}
-		// Vérifier si le rayon a touché un mur
-		// Assurez-vous que map_x et map_y sont dans les limites de la carte
-		if (ray->map_y < 0 || ray->map_x < 0 ||
-			ray->map_y >= map->height || ray->map_x >= map->width ||
-			map->grid[ray->map_y][ray->map_x] == '1')
-		{
-			ray->hit = 1; // Un mur est touché
-		}
-	}
-}
-
-void	init_ray(t_ray *ray, t_player *player, int x)
-{
-	ray->camera_x = 2 * x / (double)WINDOW_WIDTH - 1; //formule a revoir
-	ray->dir_x = player->dir.x + player->plane.x * ray->camera_x;
-	ray->dir_y = player->dir.y + player->plane.y * ray->camera_x;
-	ray->map_x = (int)player->pos.x;
-	ray->map_y = (int)player->pos.y;
-	if (ray->dir_x == 0)
-		ray->delta_dist_x = 1e30;
-	else
-		ray->delta_dist_x = fabs(1 / ray->dir_x);
-	if (ray->dir_y == 0)
-		ray->delta_dist_y = 1e30;
-	else
-		ray->delta_dist_y = fabs(1 / ray->dir_y);
-	ray->hit = 0;
-}
-
 void	raycasting(t_game *game)
 {
 	t_ray	ray;
 	int		x;
-	int		y;
-	int		color;
-	int		floor_color;
-	int		ceiling_color;
 
-	y = 0;
-	color = 0;
-	floor_color = (game->map.floor_color.r << 16) |
-					(game->map.floor_color.g << 8) |
-					(game->map.floor_color.b);
-	ceiling_color = (game->map.ceiling_color.r << 16) |
-					(game->map.ceiling_color.g << 8) |
-					(game->map.ceiling_color.b);
-	for (y = 0; y < WINDOW_HEIGHT; y++)
-	{
-		if (y < WINDOW_HEIGHT / 2)
-			color = ceiling_color;
-		else
-			color = floor_color;
-		for (int x_fill = 0; x_fill < WINDOW_WIDTH; x_fill++) {
-			*(int *)(game->img.addr + (y * game->img.line_len + x_fill * (game->img.bits_per_pixel / 8))) = color;
-		}
-	}
 	x = 0;
+	color_handle(game);
 	while (x < WINDOW_WIDTH)
 	{
 		init_ray(&ray, &game->player, x);

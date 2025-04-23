@@ -59,6 +59,7 @@ SRC				= ./srcs/
 PARSING			= $(SRC)01_parsing/
 INIT			= $(SRC)02_initialization/
 EXEC			= $(SRC)03_exec/
+RAY				= $(EXEC)raycasting/
 OBJ				= ./objs/
 MLX_DIR			= ./minilibx-linux/
 MYLIB_DIR		= ./my_lib/
@@ -83,7 +84,10 @@ SRCS			= $(SRC)main.c \
 				$(EXEC)keyhook.c \
 				$(EXEC)move.c \
 				$(EXEC)rotation.c \
-				$(EXEC)raycasting.c \
+				$(RAY)raycasting.c \
+				$(RAY)handle_color.c \
+				$(RAY)init_ray.c \
+				$(RAY)dda.c
 
 # Object files
 OBJS			= $(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))
