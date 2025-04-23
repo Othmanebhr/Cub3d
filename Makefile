@@ -87,7 +87,8 @@ SRCS			= $(SRC)main.c \
 				$(RAY)raycasting.c \
 				$(RAY)handle_color.c \
 				$(RAY)init_ray.c \
-				$(RAY)dda.c
+				$(RAY)dda.c \
+				$(RAY)draw_wall.c \
 
 # Object files
 OBJS			= $(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))

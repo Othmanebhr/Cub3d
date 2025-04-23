@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/23 11:40:13 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:40:32 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ typedef struct s_game
 	t_gc		gc;
 }	t_game;
 
+
 /* ------------------------------------------------------------------------- */
 /*                             FUNCTION PROTOTYPES                           */
 /* ------------------------------------------------------------------------- */
@@ -363,6 +364,7 @@ void	raycasting(t_game	*game);
 void	color_handle(t_game *game);
 void	init_ray(t_ray *ray, t_player *player, int x);
 void	perform_dda(t_ray *ray, t_map *map);
+void	draw_wall(t_game *game, t_ray *ray, int x, int color, int line_height);
 
 //init struct
 void	init_ray(t_ray *ray, t_player *player, int x);
