@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/23 17:40:32 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:50:08 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@
 # define WINDOW_TITLE "Cub3D"
 
 // GAMEPLAY SETTINGS
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.02
 # define COLLISION_PADDING 0.2
 
 // MAP SETTINGS
@@ -143,31 +143,6 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
-/* // RAY STRUCTURE
-typedef struct s_ray
-{
-	t_vec2	pos;
-	t_vec2	dir;
-	t_vec2	plane;
-	t_vec2	ray_dir;
-	t_vec2	side_dist;
-	t_vec2	delta_dist;
-	double	perp_wall_dist;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		tex_num;
-	double	wall_x;
-	int		tex_x;
-	double	tex_pos;
-	int		tex_y;
-}	t_ray; */
-
 // MAP STRUCTURE
 typedef struct s_map
 {
@@ -242,33 +217,6 @@ int		check_map_lines(char **lines, int start, int end);
 int		check_player_spawn(char **lines, t_game *game, int start, int end);
 int		copy_map_to_game(char **lines, t_game *game, int start, int end);
 
-/* ------------------------------- Rendering ------------------------------- */
-// int		render_frame(t_game *game);
-// void	cast_rays(t_game *game);
-// void	draw_walls(t_game *game, t_ray *ray, int x);
-// void	draw_floor_ceiling(t_game *game);
-// void	calculate_ray(t_game *game, t_ray *ray, int x);
-// void	perform_dda(t_game *game, t_ray *ray);
-// void	calculate_wall_distance(t_ray *ray);
-// void	calculate_wall_texture(t_game *game, t_ray *ray);
-
-/* ---------------------------- Player Movement ---------------------------- */
-// void	move_player(t_game *game);
-// void	move_forward(t_game *game);
-// void	move_backward(t_game *game);
-// void	move_left(t_game *game);
-// void	move_right(t_game *game);
-// void	rotate_left(t_game *game);
-// void	rotate_right(t_game *game);
-
-/* ------------------------------- Texturing ------------------------------- */
-// int		load_texture(t_game *game, t_texture *texture, char *path);
-// void	apply_texture(t_game *game, t_ray *ray, int x);
-
-/* ------------------------------ Input Handling --------------------------- */
-// int		key_press(int keycode, t_game *game);
-// int		key_release(int keycode, t_game *game);
-// int		close_window(t_game *game);
 
 /* ------------------------------- Utilities ------------------------------- */
 int		ft_error(char *str);
@@ -278,46 +226,6 @@ int		close_window(t_game *game);
 /* ------------------------------------------------------------------------- */
 /*                                    OTH                                    */
 /* ------------------------------------------------------------------------- */
-
-
-
-/* typedef struct s_img
-{
-	void		*NO_img;
-	void		*SO_img;
-	void		*WE_img;
-	void		*EA_img;
-	char		*NO_addr;
-	char		*SO_addr;
-	char		*WE_addr;
-	char		*EA_addr;
-	int			line_len;
-	int			bpp;//a voir
-	int			endian;//a voir
-
-	void	*frame_img;
-	char	*frame_addr;
-	int		frame_bpp;
-	int		frame_line_len;
-	int		frame_endian;
-}	t_img; */
-
-
-
-/* typedef struct s_player
-{
-	double		pos_x;
-	double		pos_y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
-}	t_player; */
-
-// plane = positin de la camera qui va etre perpendiculaire a la direction
-
-
-
 
 typedef struct s_ray
 {
@@ -336,19 +244,6 @@ typedef struct s_ray
 	int		side; // 0 si un cote x a ete touche, 1 si un cote y a ete touche
 	double	perp_wall_dist; //distance perpendiculaire du joueur au mur
 }	t_ray;
-
-
-
-/* typedef struct s_game
-{
-	void		*mlx;
-	void		*win;//window
-	t_img		*imgs;
-	t_player	*player;
-	t_data		*data;
-	t_keys		*keys;
-}	t_game; */
-
 
 /*Keyhook*/
 int			handle_keyhook(t_game *game);
