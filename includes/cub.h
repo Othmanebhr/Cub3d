@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/25 16:59:39 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/25 17:48:29 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ void	handle_rotation(t_player *player, t_keys *key);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
 int		handle_mouse_move(int x, int y, void *param);
+int		mouse_motion(int x, int y, t_game *game);
 
 //raycasting
 void	raycasting(t_game	*game);
