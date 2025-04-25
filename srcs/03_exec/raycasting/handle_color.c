@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:23:57 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 11:46:50 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:06:50 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,15 @@ static void	fill_line_with_color(t_game *game, int color, int idx_line)
 void	color_handle(t_game *game)
 {
 	int	color;
-	int	floor_color;
-	int	ceiling_color;
 	int	idx_line;
 
-	color = 0;
 	idx_line = 0;
-	floor_color = (game->map.floor_color.r << 16)
-		| (game->map.floor_color.g << 8)
-		| (game->map.floor_color.b);
-	ceiling_color = (game->map.ceiling_color.r << 16)
-		| (game->map.ceiling_color.g << 8)
-		| (game->map.ceiling_color.b);
 	while (idx_line < WINDOW_HEIGHT)
 	{
 		if (idx_line < WINDOW_HEIGHT / 2)
-			color = ceiling_color;
+			color = game->map.ceiling_color;
 		else
-			color = floor_color;
+			color = game->map.floor_color;
 		fill_line_with_color(game, color, idx_line);
 		idx_line++;
 	}

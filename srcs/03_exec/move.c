@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 20:19:27 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 20:20:01 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/25 17:12:42 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	handle_move(t_game *game, t_player *player, t_keys *key)
 {
 	if (key->w)
 		move_forward(game, player);
-	else if (key->s)
+	if (key->s)
 		move_backward(game, player);
-	else if (key->a)
+	if (key->a)
 		move_left(game, player);
-	else if (key->d)
+	if (key->d)
 		move_right(game, player);
 }

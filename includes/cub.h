@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/23 19:12:48 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:59:39 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@
 # define WINDOW_TITLE "Cub3D"
 
 // GAMEPLAY SETTINGS
-# define MOVE_SPEED 0.02
-# define ROT_SPEED 0.02
+# define MOVE_SPEED 0.04
+# define ROT_SPEED 0.04
 # define COLLISION_PADDING 0.2
 
 // MAP SETTINGS
-# define MAX_MAP_WIDTH 100
-# define MAX_MAP_HEIGHT 100
+# define MAX_MAP_WIDTH 512
+# define MAX_MAP_HEIGHT 512
 
 // TEXTURE SETTINGS
 # define TEX_WIDTH 64
@@ -104,7 +104,7 @@ typedef enum e_direction
 /* -------------------------------------------------------------------------- */
 
 // PARSE ELEMENTS STRUCTURE
-typedef struct s_parse_elements
+typedef struct s_parsing
 {
 	char	**tokens;
 	bool	found_na;
@@ -113,7 +113,7 @@ typedef struct s_parse_elements
 	bool	found_ea;
 	bool	found_floor;
 	bool	found_ceiling;
-}	t_parse_elements;
+}	t_parsing;
 
 // POINT/VECTOR STRUCTURE
 typedef struct s_vec2
@@ -121,14 +121,6 @@ typedef struct s_vec2
 	double	x;
 	double	y;
 }	t_vec2;
-
-// COLOR STRUCTURE
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
 
 // TEXTURE STRUCTURE
 typedef struct s_texture
@@ -149,8 +141,8 @@ typedef struct s_map
 	char		**grid;
 	int			width;
 	int			height;
-	t_color		floor_color;
-	t_color		ceiling_color;
+	int			floor_color;
+	int			ceiling_color;
 }	t_map;
 
 // PLAYER STRUCTURE
@@ -172,6 +164,7 @@ typedef struct s_img
 	int		endian;
 	int		width;
 	int		height;
+	int		mouse_last_x;
 }	t_img;
 
 typedef struct s_keys
@@ -188,13 +181,13 @@ typedef struct s_keys
 // GAME STRUCTURE
 typedef struct s_game
 {
-	int			mouse_last_x;
 	void		*mlx;
 	void		*win;
-	t_img		img;
+	t_parsing	parsing;
+	t_texture	textures[NUM_TEXTURES];
 	t_map		map;
 	t_player	player;
-	t_texture	textures[NUM_TEXTURES];
+	t_img		img;
 	t_keys		keys;
 	t_gc		gc;
 }	t_game;
@@ -210,11 +203,13 @@ int		initialize_game(char *cub_path, t_game *game);
 /* -------------------------------- Parsing -------------------------------- */
 char	**read_cub_file(int fd, t_game *game);
 int		verify_elements(char **lines, t_game *game);
-int		handle_texture(t_parse_elements *pe, t_game *game, int idx);
-int		handle_color(t_parse_elements *pe, t_game *game);
+int		handle_texture(t_parsing *pe, t_game *game, int idx);
+int		handle_color(t_parsing *pe, t_game *game);
 bool	is_map_line(const char *line);
 int		parse_map(char **lines, t_game *game);
+int		check_map_dimensions(char **lines, int start, int end);
 int		check_map_lines(char **lines, int start, int end);
+void	replace_spaces_with_one(char **lines, int start, int end);
 int		check_player_spawn(char **lines, t_game *game, int start, int end);
 int		copy_map_to_game(char **lines, t_game *game, int start, int end);
 
@@ -247,14 +242,14 @@ typedef struct s_ray
 }	t_ray;
 
 /*Keyhook*/
-int			handle_keyhook(t_game *game);
-void		handle_move(t_game *game, t_player *player, t_keys *key);
-void		move_if_no_collision(t_game *game, \
+int		handle_keyhook(t_game *game);
+void	handle_move(t_game *game, t_player *player, t_keys *key);
+void	move_if_no_collision(t_game *game, \
 t_player *player, double next_x, double next_y);
-void		handle_rotation(t_player *player, t_keys *key);
-int			handle_keypress(int keycode, t_game *game);
-int			handle_keyrelease(int keycode, t_game *game);
-int			handle_mouse_move(int x, int y, void *param);
+void	handle_rotation(t_player *player, t_keys *key);
+int		handle_keypress(int keycode, t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
+int		handle_mouse_move(int x, int y, void *param);
 
 //raycasting
 void	raycasting(t_game	*game);

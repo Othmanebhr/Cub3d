@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   move_mouse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:04:26 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 19:20:49 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:06:40 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+// mlx_mouse_hide(game->mlx, game->win);
 
 static void	rotate_player(t_game *game, double angle)
 {
@@ -39,17 +41,19 @@ int	handle_mouse_move(int x, int y, void *param)
 	(void)y;
 	sensitivity = 0.003;
 	game = (t_game *)param;
-	if (game->mouse_last_x == -1)
+	if (game->img.mouse_last_x == -1)
 	{
-		game->mouse_last_x = x;
+		game->img.mouse_last_x = x;
 		return (0);
 	}
-	delta_x = x - game->mouse_last_x;
+	delta_x = x - game->img.mouse_last_x;
 	if (delta_x != 0)
 	{
 		angle = delta_x * sensitivity;
 		rotate_player(game, angle);
 	}
-	game->mouse_last_x = x;
+	game->img.mouse_last_x = x;
+	mlx_mouse_move(game->mlx, game->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	game->img.mouse_last_x = WINDOW_WIDTH / 2;
 	return (0);
 }

@@ -1,53 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_elements_utils.c                             :+:      :+:    :+:   */
+/*   02_parse_elements_colors.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:46 by besch             #+#    #+#             */
-/*   Updated: 2025/04/21 19:31:47 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/25 15:31:36 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static bool	is_texture_file_ok(char *path)
+static int	rgb_to_int(int r, int g, int b)
 {
-	int		fd;
-	size_t	len;
-
-	len = ft_strlen(path);
-	if (len < 5 || ft_strncmp(path + len - 4, ".xpm", 4) != 0)
-		return (false);
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
-}
-
-int	handle_texture(t_parse_elements *pe, t_game *game, int idx)
-{
-	bool	*found;
-
-	if (idx == 0)
-		found = &pe->found_na;
-	else if (idx == 1)
-		found = &pe->found_so;
-	else if (idx == 2)
-		found = &pe->found_we;
-	else if (idx == 3)
-		found = &pe->found_ea;
-	else
-		return (ft_error("Error\nInvalid texture index"));
-	if (*found)
-		return (ft_error("Error\nDuplicate texture"));
-	*found = true;
-	if (is_texture_file_ok(pe->tokens[1]) == false)
-		return (ft_error("Error\nTexture file not accessible"));
-	game->textures[idx].path = ft_strdup_gc(pe->tokens[1], &game->gc);
-	return (0);
+	return ((r << 16) | (g << 8) | b);
 }
 
 static bool	is_valid_rgb_number(const char *s)
@@ -56,25 +23,20 @@ static bool	is_valid_rgb_number(const char *s)
 
 	i = 0;
 
-	// Skip leading spaces
 	while (s[i] == ' ')
 		i++;
-	// Optional sign not allowed for RGB
 	if (s[i] == '-' || s[i] == '+')
 		return (false);
-	// At least one digit
 	if (!ft_isdigit(s[i]))
 		return (false);
 	while (ft_isdigit(s[i]))
 		i++;
-	// Skip trailing spaces
 	while (s[i] == ' ')
 		i++;
-	// Should be end of string
 	return (s[i] == '\0');
 }
 
-static bool	is_rgb_ok(char *str, t_color *color, t_game *game)
+static bool	is_rgb_ok(char *str, int *color, t_game *game)
 {
 	char	**split;
 	int		r;
@@ -92,28 +54,28 @@ static bool	is_rgb_ok(char *str, t_color *color, t_game *game)
 	b = ft_atoi(split[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (false);
-	color->r = r;
-	color->g = g;
-	color->b = b;
+	*color = rgb_to_int(r, g, b);
 	return (true);
 }
 
-int	handle_color(t_parse_elements *pe, t_game *game)
+int	handle_color(t_parsing *parsing, t_game *game)
 {
-	if (ft_strncmp(pe->tokens[0], "F", 1) == 0)
+	if (ft_strncmp(parsing->tokens[0], "F", 1) == 0)
 	{
-		if (pe->found_floor)
+		if (parsing->found_floor)
 			return (ft_error("Error\nDuplicate floor color"));
-		pe->found_floor = true;
-		if (is_rgb_ok(pe->tokens[1], &game->map.floor_color, game) == false)
+		parsing->found_floor = true;
+		if (is_rgb_ok
+			(parsing->tokens[1], &game->map.floor_color, game) == false)
 			return (ft_error("Error\nInvalid floor color format"));
 	}
-	else if (ft_strncmp(pe->tokens[0], "C", 1) == 0)
+	else if (ft_strncmp(parsing->tokens[0], "C", 1) == 0)
 	{
-		if (pe->found_ceiling)
+		if (parsing->found_ceiling)
 			return (ft_error("Error\nDuplicate ceiling color"));
-		pe->found_ceiling = true;
-		if (is_rgb_ok(pe->tokens[1], &game->map.ceiling_color, game) == false)
+		parsing->found_ceiling = true;
+		if (is_rgb_ok
+			(parsing->tokens[1], &game->map.ceiling_color, game) == false)
 			return (ft_error("Error\nInvalid ceiling color format"));
 	}
 	return (0);

@@ -77,10 +77,12 @@ SRCS			= $(SRC)main.c \
 				$(INIT)initialization.c \
 				$(PARSING)01_read_cub_file.c \
 				$(PARSING)02_parse_elements.c \
+				$(PARSING)02_parse_elements_colors.c \
+				$(PARSING)02_parse_elements_textures.c \
 				$(PARSING)03_parse_map.c \
 				$(PARSING)04_parse_map_player.c \
-				$(PARSING)parse_elements_utils.c \
-				$(PARSING)parse_map_utils.c \
+				$(PARSING)parse_map_utils_1.c \
+				$(PARSING)parse_map_utils_2.c \
 				$(EXEC)keyhook.c \
 				$(EXEC)move.c \
 				$(EXEC)rotation.c \

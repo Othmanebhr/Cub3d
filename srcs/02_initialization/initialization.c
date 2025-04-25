@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:00:01 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 10:52:17 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:03:13 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,14 @@ int	initialize_game(char *cub_path, t_game *game)
 		return (ft_error("Error\nFail to opening map file"));
 	cub_tmp = read_cub_file(fd, game);
 	if (close(fd) == -1)
-		return (ft_error("Error\nFail to closing map file"));
+		return (gc_cleanup(&game->gc), \
+		ft_error("Error\nFail to closing map file"));
 	if (!cub_tmp)
-		return (ft_error("Error\nFail to reading map file"));
+		return (gc_cleanup(&game->gc), \
+		ft_error("Error\nFail to reading map file"));
 	if (parse_cub_file(cub_tmp, game) == 1)
-		return (1);
+		return (gc_cleanup(&game->gc), 1);
 	if (init_mlx_and_imgs(game) == 1)
-		return (1);
+		return (gc_cleanup(&game->gc), 1);
 	return (0);
 }
