@@ -92,6 +92,7 @@ SRCS			= $(SRC)main.c \
 				$(RAY)init_ray.c \
 				$(RAY)dda.c \
 				$(RAY)draw_wall.c \
+				$(RAY)mini_map.c \
 
 # Object files
 OBJS			= $(patsubst $(SRC)%, $(OBJ)%, $(SRCS:.c=.o))

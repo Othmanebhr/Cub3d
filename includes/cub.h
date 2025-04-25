@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/25 17:48:29 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/25 19:17:21 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@
 # define KEY_D 100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+
+// MINIMAP SETTINGS
+# define MINIMAP_SCALE 8
+# define MINIMAP_OFFSET_X 10
+# define MINIMAP_OFFSET_Y 10
 
 /* -------------------------------------------------------------------------- */
 /*                                   ENUMS                                    */
@@ -258,6 +263,7 @@ void	color_handle(t_game *game);
 void	init_ray(t_ray *ray, t_player *player, int x);
 void	perform_dda(t_ray *ray, t_map *map);
 void	draw_wall(t_game *game, t_ray *ray, int x, int color, int line_height);
+void	draw_minimap(t_game *game);
 
 //init struct
 void	init_ray(t_ray *ray, t_player *player, int x);
