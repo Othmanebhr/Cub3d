@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/26 17:51:35 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:55:46 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,6 @@ typedef struct s_game
 	t_ray		ray;
 }	t_game;
 
-
 /* ------------------------------------------------------------------------- */
 /*                             FUNCTION PROTOTYPES                           */
 /* ------------------------------------------------------------------------- */
@@ -237,7 +236,6 @@ void	replace_spaces_with_one(char **lines, int start, int end);
 int		check_player_spawn(char **lines, t_game *game, int start, int end);
 int		copy_map_to_game(char **lines, t_game *game, int start, int end);
 
-
 /* ------------------------------- Utilities ------------------------------- */
 int		ft_error(char *str);
 int		free_game(t_game *game);
@@ -246,7 +244,6 @@ int		close_window(t_game *game);
 /* ------------------------------------------------------------------------- */
 /*                                    OTH                                    */
 /* ------------------------------------------------------------------------- */
-
 
 /*Keyhook*/
 int		handle_keyhook(t_game *game);
