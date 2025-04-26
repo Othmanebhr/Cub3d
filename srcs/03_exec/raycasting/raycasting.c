@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/26 17:31:57 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:43:11 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static void	calculate_wall_distance(t_ray *ray, t_player *player)
 		ray->perp_wall_dist
 			= (ray->map_y - player->pos.y + (1 - ray->step_y) / 2) / ray->dir_y;
 }
-
 
 void	raycasting(t_game *game)
 {

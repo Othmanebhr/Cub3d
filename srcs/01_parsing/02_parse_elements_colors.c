@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_parse_elements_colors.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:46 by besch             #+#    #+#             */
-/*   Updated: 2025/04/25 15:31:36 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:43:20 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static bool	is_valid_rgb_number(const char *s)
 	int	i;
 
 	i = 0;
-
 	while (s[i] == ' ')
 		i++;
 	if (s[i] == '-' || s[i] == '+')

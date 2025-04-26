@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_read_cub_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 19:31:30 by besch             #+#    #+#             */
-/*   Updated: 2025/04/22 15:00:54 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:42:40 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	**read_cub_file(int fd, t_game *game)
 		line = get_next_line(fd);
 	}
 	lines[count] = NULL;
-	// print_cub_tmp(lines);
 	return (lines);
 }
+
+// print_cub_tmp(lines);
