@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/25 19:17:21 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 16:49:15 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@
 # endif
 
 // WINDOW SETTINGS
-# define WINDOW_WIDTH 1024
-# define WINDOW_HEIGHT 768
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define WINDOW_TITLE "Cub3D"
 
 // GAMEPLAY SETTINGS
@@ -88,6 +88,7 @@
 
 // MINIMAP SETTINGS
 # define MINIMAP_SCALE 8
+# define MINIMAP_SIZE  30
 # define MINIMAP_OFFSET_X 10
 # define MINIMAP_OFFSET_Y 10
 

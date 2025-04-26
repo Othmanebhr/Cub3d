@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 17:42:15 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 16:34:35 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void	raycasting(t_game *game)
 		draw_wall(game, &ray, x, color, line_height);
 		x++;
 	}
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
