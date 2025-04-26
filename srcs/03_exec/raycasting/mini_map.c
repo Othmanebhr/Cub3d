@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 18:59:37 by besch             #+#    #+#             */
-/*   Updated: 2025/04/26 17:08:02 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:24:37 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	draw_square(t_game *game, int x, int y, int color)
 		j = -1;
 		while (++j < MINIMAP_SCALE)
 		{
-			if (x + i >= 0 && x + i < WINDOW_WIDTH
-				&& y + j >= 0 && y + j < WINDOW_HEIGHT)
+			if (x + i >= 0 && x + i < WIN_WIDTH
+				&& y + j >= 0 && y + j < WIN_HEIGHT)
 				*(int *)(game->img.addr + ((y + j) * game->img.line_len \
 				+ (x + i) * (game->img.bits_per_pixel / 8))) = color;
 		}

@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 20:00:01 by besch             #+#    #+#             */
-/*   Updated: 2025/04/25 16:03:13 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:24:37 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static int	init_frame_buffer(t_game *game)
 	int	w;
 	int	h;
 
-	w = WINDOW_WIDTH;
-	h = WINDOW_HEIGHT;
+	w = WIN_WIDTH;
+	h = WIN_HEIGHT;
 	game->img.img = mlx_new_image(game->mlx, w, h);
 	if (!game->img.img)
 		return (ft_error("Error\nFailed to create frame buffer"));
@@ -65,7 +65,7 @@ static int	init_mlx_and_imgs(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (ft_error("Error\nMLX init failed\n"));
-	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
+	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	if (!game->win)
 		return (ft_error("Error\nWindow creation failed\n"));
 	if (load_texture(game, NORTH) || load_texture(game, SOUTH)

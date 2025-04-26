@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 17:39:58 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 17:43:40 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:24:37 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static t_texture	*choose_texture(t_game *game, t_ray *ray)
 
 static void	calc_wall_params(t_ray *ray, int *l_hgt, int *d_start, int *d_end)
 {
-	*l_hgt = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
-	*d_start = -(*l_hgt) / 2 + WINDOW_HEIGHT / 2;
+	*l_hgt = (int)(WIN_HEIGHT / ray->perp_wall_dist);
+	*d_start = -(*l_hgt) / 2 + WIN_HEIGHT / 2;
 	if (*d_start < 0)
 		*d_start = 0;
-	*d_end = *l_hgt / 2 + WINDOW_HEIGHT / 2;
-	if (*d_end >= WINDOW_HEIGHT)
-		*d_end = WINDOW_HEIGHT - 1;
+	*d_end = *l_hgt / 2 + WIN_HEIGHT / 2;
+	if (*d_end >= WIN_HEIGHT)
+		*d_end = WIN_HEIGHT - 1;
 }
 
 static int	calc_tex_x(t_game *game, t_ray *ray, t_texture *tex)
@@ -65,7 +65,7 @@ void	draw_wall(t_game *game, t_ray *ray, int x, int color, int line_height)
 	calc_wall_params(ray, &line_height, &draw_start, &draw_end);
 	while (draw_start < draw_end)
 	{
-		dist = draw_start * 256 - WINDOW_HEIGHT * 128 + line_height * 128;
+		dist = draw_start * 256 - WIN_HEIGHT * 128 + line_height * 128;
 		tex_x_y.y = ((dist * tex->height) / line_height) / 256;
 		color = *(int *)(tex->addr + ((int)tex_x_y.y \
 		* tex->line_len + (int)tex_x_y.x * (tex->bits_per_pixel / 8)));

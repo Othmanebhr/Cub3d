@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:37:03 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 12:35:34 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:23:56 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_ray(t_ray *ray, t_player *player, int col_x)
 {
-	ray->camera_x = 2 * col_x / (double)WINDOW_WIDTH - 1;
+	ray->camera_x = 2 * col_x / (double)WIN_WIDTH - 1;
 	ray->dir_x = player->dir.x + player->plane.x * ray->camera_x;
 	ray->dir_y = player->dir.y + player->plane.y * ray->camera_x;
 	ray->map_x = (int)player->pos.x;

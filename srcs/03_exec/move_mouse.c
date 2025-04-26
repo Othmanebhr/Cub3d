@@ -6,13 +6,11 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:04:26 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/25 17:44:37 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:25:29 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-// mlx_mouse_hide(game->mlx, game->win);
 
 static void	rotate_player(t_game *game, double angle)
 {
@@ -31,44 +29,29 @@ static void	rotate_player(t_game *game, double angle)
 		+ game->player.plane.y * cos(angle);
 }
 
-int	handle_mouse_move(int x, int y, void *param)
+static int	should_recenter_mouse(int x)
 {
-	t_game	*game;
-	double	sensitivity;
-	int		delta_x;
-	double	angle;
-
-	(void)y;
-	sensitivity = 0.003;
-	game = (t_game *)param;
-	if (game->img.mouse_last_x == -1)
-	{
-		game->img.mouse_last_x = x;
-		return (0);
-	}
-	delta_x = x - game->img.mouse_last_x;
-	if (delta_x != 0)
-	{
-		angle = delta_x * sensitivity;
-		rotate_player(game, angle);
-	}
-	game->img.mouse_last_x = x;
-	mlx_mouse_move(game->mlx, game->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	game->img.mouse_last_x = WINDOW_WIDTH / 2;
+	if (x < WIN_WIDTH / 10 || x > WIN_WIDTH * 9 / 10)
+		return (1);
 	return (0);
 }
 
-static int	manage_mouse_wrapping(int x, int *prev_x, t_game *game)
+static int	is_first_mouse_event(int *prev_x, int x)
 {
-	int	center_x;
-	int	center_y;
-
-	center_x = WINDOW_WIDTH / 2;
-	center_y = WINDOW_HEIGHT / 2;
-	if (x < WINDOW_WIDTH / 10 || x > WINDOW_WIDTH * 9 / 10)
+	if (*prev_x == -1)
 	{
-		mlx_mouse_move(game->mlx, game->win, center_x, center_y);
-		*prev_x = center_x;
+		*prev_x = x;
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_recentered(int *recentered, int *prev_x, int x)
+{
+	if (*recentered)
+	{
+		*recentered = 0;
+		*prev_x = x;
 		return (1);
 	}
 	return (0);
@@ -77,35 +60,27 @@ static int	manage_mouse_wrapping(int x, int *prev_x, t_game *game)
 int	mouse_motion(int x, int y, t_game *game)
 {
 	static int	prev_x = -1;
-	static bool	recentered = false;
+	static int	recentered = 0;
 	int			delta_x;
-	double		old_dir_x;
-	double		old_plane_x;
 	double		rot;
 
 	(void)y;
-	if (prev_x == -1)
-		prev_x = x;
-	if (manage_mouse_wrapping(x, &prev_x, game))
+	if (is_first_mouse_event(&prev_x, x))
+		return (0);
+	if (should_recenter_mouse(x))
 	{
-		recentered = true;
+		mlx_mouse_move(game->mlx, game->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		prev_x = WIN_WIDTH / 2;
+		recentered = 1;
 		return (0);
 	}
-	if (recentered)
-	{
-		recentered = false;
-		prev_x = x;
-	}
+	if (handle_recentered(&recentered, &prev_x, x))
+		return (0);
 	delta_x = x - prev_x;
 	if (delta_x != 0)
 	{
 		rot = delta_x * 0.003;
-		old_dir_x = game->player.dir.x;
-		old_plane_x = game->player.plane.x;
-		game->player.dir.x = game->player.dir.x * cos(rot) - game->player.dir.y * sin(rot);
-		game->player.dir.y = old_dir_x * sin(rot) + game->player.dir.y * cos(rot);
-		game->player.plane.x = game->player.plane.x * cos(rot) - game->player.plane.y * sin(rot);
-		game->player.plane.y = old_plane_x * sin(rot) + game->player.plane.y * cos(rot);
+		rotate_player(game, rot);
 	}
 	prev_x = x;
 	return (0);

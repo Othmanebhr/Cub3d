@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/26 16:49:15 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:26:43 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@
 # endif
 
 // WINDOW SETTINGS
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
-# define WINDOW_TITLE "Cub3D"
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+# define WIN_TITLE "Cub3D"
 
 // GAMEPLAY SETTINGS
 # define MOVE_SPEED 0.04

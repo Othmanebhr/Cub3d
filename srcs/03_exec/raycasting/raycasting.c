@@ -6,7 +6,7 @@
 /*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/26 16:34:35 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:23:56 by besch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	raycasting(t_game *game)
 	color = 0;
 	line_height = 0;
 	color_handle(game);
-	while (x < WINDOW_WIDTH)
+	while (x < WIN_WIDTH)
 	{
 		init_ray(&ray, &game->player, x);
 		calculate_step_and_side_dist(&ray, &game->player);
