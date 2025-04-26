@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 17:39:58 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/26 17:24:37 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:36:37 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ static t_texture	*choose_texture(t_game *game, t_ray *ray)
 		return (&game->textures[NORTH]);
 }
 
+/*
+Formule : position du mur frappé et coordonnée X de la texture
+Si côté vertical :
+mur_x = pos_y + distance * dir_y
+Sinon :
+mur_x = pos_x + distance * dir_x
+mur_x = mur_x - floor(mur_x)
+texture_x = mur_x * largeur_texture
+*/
+
 static void	calc_wall_params(t_ray *ray, int *l_hgt, int *d_start, int *d_end)
 {
 	*l_hgt = (int)(WIN_HEIGHT / ray->perp_wall_dist);
@@ -34,6 +44,11 @@ static void	calc_wall_params(t_ray *ray, int *l_hgt, int *d_start, int *d_end)
 	if (*d_end >= WIN_HEIGHT)
 		*d_end = WIN_HEIGHT - 1;
 }
+
+/*
+Formule : coordonnée Y de la texture
+texture_y = ((pixel * hauteur_texture) / hauteur_ligne) / 256
+*/
 
 static int	calc_tex_x(t_game *game, t_ray *ray, t_texture *tex)
 {

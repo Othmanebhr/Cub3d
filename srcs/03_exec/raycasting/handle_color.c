@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   handle_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:23:57 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/26 17:24:37 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:38:42 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+/*
+formule : adresse d'un pixel dans l'image
+adresse_pixel = adresse_image + (ligne * taille_ligne_octets + colonne *
+(bits_par_pixel / 8))
+*/
+
+/*
+formule : choix de la couleur selon la ligne
+couleur = (ligne < hauteur_fenetre / 2) ? couleur_plafond : couleur_sol
+*/
 
 static void	fill_line_with_color(t_game *game, int color, int idx_line)
 {

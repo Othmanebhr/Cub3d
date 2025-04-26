@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:39:30 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/23 11:40:07 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:33:34 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	perform_dda(t_ray *ray, t_map *map)
 		}
 		// Vérifier si le rayon a touché un mur
 		// Assurez-vous que map_x et map_y sont dans les limites de la carte
-		if (ray->map_y < 0 || ray->map_x < 0 ||
-			ray->map_y >= map->height || ray->map_x >= map->width ||
-			map->grid[ray->map_y][ray->map_x] == '1')
+		if (ray->map_y < 0 || ray->map_x < 0
+			|| ray->map_y >= map->height || ray->map_x >= map->width
+			|| map->grid[ray->map_y][ray->map_x] == '1')
 		{
 			ray->hit = 1; // Un mur est touché
 		}

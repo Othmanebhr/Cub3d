@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyhook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: besch <besch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:26:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/22 20:28:39 by besch            ###   ########.fr       */
+/*   Updated: 2025/04/26 17:32:05 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int	handle_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
+/*
+formule ; (x, y) vecteur avant rotation et (x', y')post rotation, (θ)pour l'angle
+x' = x * cos(θ) - y * sin(θ)
+y' = y * sin(θ) + y * cos(θ)
+*/
 void	move_if_no_collision(t_game *game, \
 	t_player *player, double next_x, double next_y)
 {
@@ -77,12 +82,6 @@ void	move_if_no_collision(t_game *game, \
 		[(int)(next_y + COLLISION_PADDING * y_dir)][(int)player->pos.x] != '1')
 		player->pos.y = next_y;
 }
-
-/*
-formule ; (x, y) vecteur avant rotation et (x', y') post rotation, (θ) pour l'angle
-x' = x * cos(θ) - y * sin(θ)
-y' = y * sin(θ) + y * cos(θ)
-*/
 
 int	handle_keyhook(t_game *game)
 {
