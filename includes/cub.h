@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 02:04:44 by besch             #+#    #+#             */
-/*   Updated: 2025/04/26 17:40:28 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:51:35 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,23 @@ typedef struct s_keys
 	int			right;
 }	t_keys;
 
+typedef struct s_ray
+{
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	double	perp_wall_dist;
+}	t_ray;
 
 // GAME STRUCTURE
 typedef struct s_game
@@ -196,6 +213,7 @@ typedef struct s_game
 	t_img		img;
 	t_keys		keys;
 	t_gc		gc;
+	t_ray		ray;
 }	t_game;
 
 
@@ -229,23 +247,6 @@ int		close_window(t_game *game);
 /*                                    OTH                                    */
 /* ------------------------------------------------------------------------- */
 
-typedef struct s_ray
-{
-	double	camera_x;
-	double	dir_x;
-	double	dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	double	perp_wall_dist;
-}	t_ray;
 
 /*Keyhook*/
 int		handle_keyhook(t_game *game);
@@ -263,7 +264,7 @@ void	raycasting(t_game	*game);
 void	color_handle(t_game *game);
 void	init_ray(t_ray *ray, t_player *player, int x);
 void	perform_dda(t_ray *ray, t_map *map);
-void	draw_wall(t_game *game, t_ray *ray, int x, int color, int line_height);
+void	draw_wall(t_game *game, int x, int color, int line_height);
 void	draw_minimap(t_game *game);
 
 //init struct

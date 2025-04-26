@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 17:39:58 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/26 17:36:37 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:50:34 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	calc_tex_x(t_game *game, t_ray *ray, t_texture *tex)
 	return (tex_x);
 }
 
-void	draw_wall(t_game *game, t_ray *ray, int x, int color, int line_height)
+void	draw_wall(t_game *game, int x, int color, int line_height)
 {
 	t_texture	*tex;
 	t_vec2		tex_x_y;
@@ -75,9 +75,9 @@ void	draw_wall(t_game *game, t_ray *ray, int x, int color, int line_height)
 	int			draw_end;
 	int			dist;
 
-	tex = choose_texture(game, ray);
-	tex_x_y.x = calc_tex_x(game, ray, tex);
-	calc_wall_params(ray, &line_height, &draw_start, &draw_end);
+	tex = choose_texture(game, &game->ray);
+	tex_x_y.x = calc_tex_x(game, &game->ray, tex);
+	calc_wall_params(&game->ray, &line_height, &draw_start, &draw_end);
 	while (draw_start < draw_end)
 	{
 		dist = draw_start * 256 - WIN_HEIGHT * 128 + line_height * 128;

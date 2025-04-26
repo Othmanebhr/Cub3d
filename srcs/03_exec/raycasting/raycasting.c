@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 16:08:01 by obouhour          #+#    #+#             */
-/*   Updated: 2025/04/26 17:43:11 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:53:26 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	calculate_wall_distance(t_ray *ray, t_player *player)
 
 void	raycasting(t_game *game)
 {
-	t_ray	ray;
 	int		x;
 	int		color;
 	int		line_height;
@@ -92,11 +91,11 @@ void	raycasting(t_game *game)
 	color_handle(game);
 	while (x < WIN_WIDTH)
 	{
-		init_ray(&ray, &game->player, x);
-		calculate_step_and_side_dist(&ray, &game->player);
-		perform_dda(&ray, &game->map);
-		calculate_wall_distance(&ray, &game->player);
-		draw_wall(game, &ray, x, color, line_height);
+		init_ray(&game->ray, &game->player, x);
+		calculate_step_and_side_dist(&game->ray, &game->player);
+		perform_dda(&game->ray, &game->map);
+		calculate_wall_distance(&game->ray, &game->player);
+		draw_wall(game, x, color, line_height);
 		x++;
 	}
 	draw_minimap(game);
